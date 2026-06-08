@@ -13,8 +13,8 @@ from collections import deque
 import base64
 import traceback
 from fastapi.responses import JSONResponse
-from Nirikshan.pipeline.training_pipeline import TrainingPipeline
-from Nirikshan.logger import logging
+from crash_detection_ml.pipeline.training_pipeline import TrainingPipeline
+from crash_detection_ml.logger import logging
 from pathlib import Path
 import supervision as sv
 
