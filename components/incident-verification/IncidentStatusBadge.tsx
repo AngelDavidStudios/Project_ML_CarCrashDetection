@@ -13,6 +13,7 @@ import {
 	getVerificationStatusColor,
 	getSeverityColor,
 } from '@/lib/incident-helper';
+import { useTranslations } from 'next-intl';
 
 interface VerificationStatusBadgeProps {
 	status: VerificationStatus | null;
@@ -36,16 +37,17 @@ export function VerificationStatusBadge({
 		}
 	};
 
+	const t = useTranslations('Status');
 	const getLabel = () => {
 		switch (status) {
 			case VerificationStatus.PENDING:
-				return 'Pending';
+				return t('pending');
 			case VerificationStatus.APPROVED:
-				return 'Verified';
+				return t('verified');
 			case VerificationStatus.REJECTED:
-				return 'Rejected';
+				return t('rejected');
 			default:
-				return 'Unknown';
+				return t('unknown');
 		}
 	};
 
@@ -79,16 +81,17 @@ export function SeverityBadge({
 		}
 	};
 
+	const t = useTranslations('Status');
 	const getLabel = () => {
 		switch (severity) {
 			case IncidentSeverity.CRITICAL:
-				return 'Critical';
+				return t('critical');
 			case IncidentSeverity.MAJOR:
-				return 'Major';
+				return t('major');
 			case IncidentSeverity.MINOR:
-				return 'Minor';
+				return t('minor');
 			default:
-				return 'Unknown';
+				return t('unknown');
 		}
 	};
 

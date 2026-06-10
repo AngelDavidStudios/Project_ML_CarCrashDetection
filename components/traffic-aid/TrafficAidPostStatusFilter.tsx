@@ -10,20 +10,22 @@ import {
 	DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { TrafficAidPost, TrafficAidPostStatusFilterValue } from './types';
+import { useTranslations } from 'next-intl';
 
 interface TrafficAidPostStatusFilterProps {
 	table: Table<TrafficAidPost>;
 }
 
 const statusOptions = [
-	{ value: 'active', label: 'Active' },
-	{ value: 'inactive', label: 'Inactive' },
-	{ value: 'maintenance', label: 'Maintenance' },
+	{ value: 'active', labelKey: 'statusActive' },
+	{ value: 'inactive', labelKey: 'statusInactive' },
+	{ value: 'maintenance', labelKey: 'statusMaintenance' },
 ];
 
 export function TrafficAidPostStatusFilter({
 	table,
 }: TrafficAidPostStatusFilterProps) {
+	const t = useTranslations('TrafficAidTable');
 	const statusColumn = table.getColumn('status');
 	const statusFilter =
 		statusColumn?.getFilterValue() as TrafficAidPostStatusFilterValue;
@@ -64,7 +66,7 @@ export function TrafficAidPostStatusFilter({
 							: 'text-muted-foreground'
 					}`}>
 					<Filter className='h-3.5 w-3.5' />
-					<span>Status</span>
+					<span>{t('filterStatus')}</span>
 					{isFiltered && (
 						<Badge
 							variant='secondary'
@@ -86,7 +88,7 @@ export function TrafficAidPostStatusFilter({
 						{statusFilter?.includes(option.value) && (
 							<CheckSquare className='h-4 w-4 text-blue-500' />
 						)}
-						<span>{option.label}</span>
+						<span>{t(option.labelKey)}</span>
 					</DropdownMenuCheckboxItem>
 				))}
 				{isFiltered && (
@@ -97,7 +99,7 @@ export function TrafficAidPostStatusFilter({
 							className='h-7 w-full gap-1 border-border bg-muted text-xs text-muted-foreground hover:bg-accent'
 							onClick={clearFilter}>
 							<X className='h-3 w-3' />
-							Clear filters
+							{t('clearFilters')}
 						</Button>
 					</div>
 				)}

@@ -18,6 +18,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { TrafficAidPost } from './types';
 import { TrafficAidPostStatusFilter } from './TrafficAidPostStatusFilter';
+import { useTranslations } from 'next-intl';
 
 interface TrafficAidPostTableHeaderProps {
 	table: Table<TrafficAidPost>;
@@ -34,6 +35,7 @@ export function TrafficAidPostTableHeader({
 	openAddDialog,
 	openDeleteDialog,
 }: TrafficAidPostTableHeaderProps) {
+	const t = useTranslations('TrafficAidTable');
 	return (
 		<div className='bg-card rounded-t-md border border-b-0 border-border p-4'>
 			<div className='flex flex-col space-y-3 sm:flex-row sm:items-center sm:justify-between sm:space-y-0'>
@@ -41,14 +43,14 @@ export function TrafficAidPostTableHeader({
 					<div className='relative w-full max-w-[280px]'>
 						<Search className='absolute left-3 top-2.5 h-4 w-4 text-muted-foreground' />
 						<Input
-							placeholder='Search aid posts...'
+							placeholder={t('searchPlaceholder')}
 							value={
 								(table.getColumn('name')?.getFilterValue() as string) ?? ''
 							}
 							onChange={event =>
 								table.getColumn('name')?.setFilterValue(event.target.value)
 							}
-							className='border-border bg-muted py-2 pl-10 pr-4 text-foreground placeholder-gray-500 focus:border-blue-500 focus:ring-blue-500'
+							className='border-border bg-muted py-2 pl-10 pr-4 text-foreground placeholder:text-muted-foreground focus:border-blue-500 focus:ring-blue-500'
 						/>
 					</div>
 
@@ -62,7 +64,7 @@ export function TrafficAidPostTableHeader({
 								variant='outline'
 								size='sm'
 								className='ml-auto flex h-8 gap-1 border-border bg-muted text-muted-foreground hover:bg-accent hover:text-foreground'>
-								<span>View</span>
+								<span>{t('view')}</span>
 								<ChevronDown className='h-4 w-4 opacity-50' />
 							</Button>
 						</DropdownMenuTrigger>
@@ -82,7 +84,7 @@ export function TrafficAidPostTableHeader({
 												column.toggleVisibility(!!value)
 											}>
 											{column.id === 'services'
-												? 'Services'
+												? t('colServices')
 												: column.id.charAt(0).toUpperCase() +
 													column.id.slice(1)}
 										</DropdownMenuCheckboxItem>
@@ -102,7 +104,7 @@ export function TrafficAidPostTableHeader({
 						) : (
 							<RefreshCw className='h-4 w-4' />
 						)}
-						<span>Refresh</span>
+						<span>{t('refresh')}</span>
 					</Button>
 
 					<Button
@@ -111,7 +113,7 @@ export function TrafficAidPostTableHeader({
 						onClick={openDeleteDialog}
 						className='h-8 gap-1 border-red-200 dark:border-red-800 bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 hover:bg-red-200 dark:hover:bg-red-900/50 hover:text-red-800 dark:hover:text-red-200'>
 						<Trash2 className='h-4 w-4' />
-						<span>Delete</span>
+						<span>{t('delete')}</span>
 					</Button>
 
 					<Button
@@ -119,7 +121,7 @@ export function TrafficAidPostTableHeader({
 						size='sm'
 						className='h-8 gap-1 bg-blue-600 hover:bg-blue-700'>
 						<PlusCircle className='h-4 w-4' />
-						<span>Add Post</span>
+						<span>{t('addPost')}</span>
 					</Button>
 				</div>
 			</div>

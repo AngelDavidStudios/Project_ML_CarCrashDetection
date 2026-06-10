@@ -2,8 +2,10 @@
 
 import React from 'react';
 import { Loader2 } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 export function TrafficAidPostLoadingState() {
+	const t = useTranslations('TrafficAidTable');
 	const rowWidths = [
 		// Row 1
 		[80, 70, 90, 75, 85, 60],
@@ -23,7 +25,7 @@ export function TrafficAidPostLoadingState() {
 				<div className='flex flex-col items-center'>
 					<Loader2 className='mb-2 h-10 w-10 animate-spin text-blue-500' />
 					<h3 className='text-lg font-medium text-muted-foreground'>
-						Loading aid posts...
+						{t('loading')}
 					</h3>
 				</div>
 			</div>
@@ -40,7 +42,7 @@ export function TrafficAidPostLoadingState() {
 							))}
 						</div>
 					</div>
-					<div className='divide-y divide-gray-800'>
+					<div className='divide-y divide-border'>
 						{rowWidths.map((row, rowIndex) => (
 							<div key={rowIndex} className='py-4'>
 								<div className='grid grid-cols-6 gap-6 px-6'>

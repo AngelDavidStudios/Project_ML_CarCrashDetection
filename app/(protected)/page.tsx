@@ -25,6 +25,7 @@ import {
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { cn } from '@/lib/utils';
 import { ToastAction } from '@/components/ui/toast';
+import { useTranslations } from 'next-intl';
 
 type DetectionLog = {
 	time: string;
@@ -60,6 +61,7 @@ export default function Page() {
 	const logsEndRef = useRef<HTMLDivElement>(null);
 	const fileInputRef = useRef<HTMLInputElement>(null);
 	const { toast } = useToast();
+	const t = useTranslations('Detection');
 
 	useEffect(() => {
 		if (logsEndRef.current) {
@@ -120,8 +122,8 @@ export default function Page() {
 
 		if (!file.type.startsWith('video/')) {
 			toast({
-				title: 'Invalid file',
-				description: 'Please select a valid video file.',
+				title: t('toastInvalidFileTitle'),
+				description: t('toastInvalidFileDesc'),
 				variant: 'destructive',
 			});
 			return;
@@ -129,8 +131,8 @@ export default function Page() {
 
 		if (file.size > 100 * 1024 * 1024) {
 			toast({
-				title: 'File too large',
-				description: 'Video file size must be less than 100MB.',
+				title: t('toastFileTooLargeTitle'),
+				description: t('toastFileTooLargeDesc'),
 				variant: 'destructive',
 			});
 			return;
@@ -182,8 +184,8 @@ export default function Page() {
 	const handleStartDetection = async () => {
 		if (!videoFile) {
 			toast({
-				title: 'No video selected',
-				description: 'Please upload a video file first.',
+				title: t('toastNoVideoTitle'),
+				description: t('toastNoVideoDesc'),
 				variant: 'destructive',
 			});
 			return;
@@ -192,7 +194,7 @@ export default function Page() {
 		try {
 			cleanupExistingConnection();
 			setUploading(true);
-			addLog('Uploading video to server...');
+			addLog(t('logUploading'));
 
 			// Upload the video to public/uploads so the backend can read it from disk
 			let videoUrl = uploadedVideoUrl;
@@ -214,13 +216,13 @@ export default function Page() {
 				setUploadedVideoUrl(videoUrl);
 			}
 
-			addLog('Video uploaded. Initializing accident detection...', 'info');
+			addLog(t('logVideoUploaded'), 'info');
 			connectToDetectionService(videoUrl!);
 		} catch (error) {
 			console.error('Failed to start detection:', error);
-			addLog(`Error: ${(error as Error).message}`, 'error');
+			addLog(t('logError', { message: (error as Error).message }), 'error');
 			toast({
-				title: 'Failed to start detection',
+				title: t('toastStartFailedTitle'),
 				description: (error as Error).message,
 				variant: 'destructive',
 			});
@@ -232,7 +234,7 @@ export default function Page() {
 	const connectToDetectionService = (videoUrl: string) => {
 		try {
 			setConnectionStatus('connecting');
-			addLog('Connecting to detection service...');
+			addLog(t('logConnecting'));
 
 			const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
 			const host =
@@ -245,20 +247,20 @@ export default function Page() {
 
 			ws.onopen = () => {
 				setConnectionStatus('connected');
-				addLog('Connected to detection service', 'info');
+				addLog(t('logConnected'), 'info');
 				setDetectionActive(true);
 
 				ws.send(
 					JSON.stringify({
 						type: 'process_video',
 						video_url: videoUrl,
-						camera_name: locationName || 'Uploaded video',
+						camera_name: locationName || t('defaultCameraName'),
 						latitude: latitude ? parseFloat(latitude) : null,
 						longitude: longitude ? parseFloat(longitude) : null,
 					})
 				);
 
-				addLog('Sent video to backend for processing', 'info');
+				addLog(t('logSentVideo'), 'info');
 			};
 
 			ws.onmessage = handleWebSocketMessage;
@@ -267,7 +269,7 @@ export default function Page() {
 		} catch (error) {
 			console.error('Failed to connect to detection service:', error);
 			setConnectionStatus('disconnected');
-			addLog(`Connection error: ${(error as Error).message}`, 'error');
+			addLog(t('logConnectionError', { message: (error as Error).message }), 'error');
 		}
 	};
 
@@ -291,12 +293,12 @@ export default function Page() {
 			if (data.type === 'processing_complete') {
 				setDetectionActive(false);
 				setProcessingComplete(true);
-				addLog('Video processing completed', 'info');
+				addLog(t('logProcessingComplete'), 'info');
 
 				if (data.accident_found) {
-					addLog('Accident was detected in this video', 'warning');
+					addLog(t('logAccidentFound'), 'warning');
 				} else if (data.accident_found === false) {
-					addLog('No accidents detected in this video', 'info');
+					addLog(t('logNoAccident'), 'info');
 				}
 			}
 
@@ -309,13 +311,15 @@ export default function Page() {
 
 					const confidence = data.confidence || 0;
 					addLog(
-						`⚠️ ACCIDENT DETECTED! (confidence: ${(confidence * 100).toFixed(1)}%)`,
+						t('logAccidentDetected', {
+							confidence: (confidence * 100).toFixed(1),
+						}),
 						'error'
 					);
 
 					toast({
-						title: 'Accident Detected!',
-						description: `Possible accident detected in the uploaded video.`,
+						title: t('toastAccidentTitle'),
+						description: t('toastAccidentDesc'),
 						variant: 'destructive',
 						duration: 5000,
 					});
@@ -326,7 +330,7 @@ export default function Page() {
 
 			if (data.type === 'image_saved') {
 				console.log('Received accident image URL:', data.image_url);
-				addLog(`Accident image saved: ${data.image_url}`, 'info');
+				addLog(t('logImageSaved', { url: data.image_url }), 'info');
 
 				const incidentData = {
 					confidenceScore: data.confidence || 0,
@@ -360,22 +364,22 @@ export default function Page() {
 						if (response.ok) {
 							const result = await response.json();
 							addLog(
-								`Incident #${result.id || ''} created and ready for verification`,
+								t('logIncidentCreated', { id: result.id || '' }),
 								'info'
 							);
 							toast({
-								title: 'Incident Created!',
-								description: `Incident #${result.id} has been created and is ready for verification.`,
+								title: t('toastIncidentTitle'),
+								description: t('toastIncidentDesc', { id: result.id }),
 								duration: 5000,
 								action: (
 									<ToastAction
 										className='font-semibold'
 										asChild
-										altText='View incident details'>
+										altText={t('viewIncidentAlt')}>
 										<a
 											href={`/incident_verification/${result.id}`}
 											target='_blank'>
-											View Incident
+											{t('viewIncident')}
 										</a>
 									</ToastAction>
 								),
@@ -385,14 +389,17 @@ export default function Page() {
 								.text()
 								.catch(() => 'Unknown error');
 							addLog(
-								`Failed to create incident record: ${response.status} ${errorText}`,
+								t('logIncidentRecordFailed', {
+									status: response.status,
+									error: errorText,
+								}),
 								'error'
 							);
 						}
 					})
 					.catch(error => {
 						console.error('Error creating incident:', error);
-						addLog(`Error creating incident: ${error.message}`, 'error');
+						addLog(t('logIncidentError', { message: error.message }), 'error');
 					});
 			}
 
@@ -405,7 +412,7 @@ export default function Page() {
 			}
 		} catch (error) {
 			console.error('Error parsing WebSocket message:', error);
-			addLog(`Error parsing message: ${(error as Error).message}`, 'warning');
+			addLog(t('logParseError', { message: (error as Error).message }), 'warning');
 		}
 	};
 
@@ -442,19 +449,19 @@ export default function Page() {
 				? 'Connection closed abnormally'
 				: 'Connection closed');
 
-		addLog(`Disconnected: ${reason}`, 'warning');
+		addLog(t('logDisconnected', { reason }), 'warning');
 
 		// Reconnect only if the video is still being processed
 		if (uploadedVideoUrl && !processingComplete) {
 			const backoffTime = event.code === 1006 ? 3000 : 1000;
 			addLog(
-				`Attempting to reconnect in ${backoffTime / 1000} seconds...`,
+				t('logReconnectIn', { seconds: backoffTime / 1000 }),
 				'info'
 			);
 
 			setTimeout(() => {
 				if (uploadedVideoUrl && !processingComplete) {
-					addLog('Reconnecting to detection service...', 'info');
+					addLog(t('logReconnecting'), 'info');
 					connectToDetectionService(uploadedVideoUrl);
 				}
 			}, backoffTime);
@@ -464,7 +471,7 @@ export default function Page() {
 	const handleWebSocketError = () => {
 		setConnectionStatus('disconnected');
 		setBackendReady(false);
-		addLog('WebSocket connection error', 'error');
+		addLog(t('logWebSocketError'), 'error');
 	};
 
 	return (
@@ -473,10 +480,10 @@ export default function Page() {
 				<div className='flex flex-col justify-between gap-4 border-b border-border py-6 sm:flex-row sm:items-center'>
 					<div>
 						<h1 className='text-2xl font-bold tracking-tight text-foreground sm:text-3xl'>
-							Accident Detection
+							{t('title')}
 						</h1>
 						<p className='mt-1 text-sm text-muted-foreground sm:text-base'>
-							Upload a video and let the AI detect accidents in it
+							{t('subtitle')}
 						</p>
 					</div>
 				</div>
@@ -488,12 +495,9 @@ export default function Page() {
 						</div>
 						<div className='max-w-md'>
 							<h3 className='mb-2 text-xl font-semibold text-foreground'>
-								No video selected
+								{t('noVideoTitle')}
 							</h3>
-							<p className='mb-6 text-muted-foreground'>
-								Upload a video file to begin analysis. Our AI will detect
-								accidents in the video and create incidents for verification.
-							</p>
+							<p className='mb-6 text-muted-foreground'>{t('noVideoDesc')}</p>
 							<input
 								type='file'
 								ref={fileInputRef}
@@ -507,10 +511,10 @@ export default function Page() {
 								className='gap-2 bg-gradient-to-r from-blue-600 to-blue-700 shadow-lg transition-all duration-200 hover:from-blue-500 hover:to-blue-600'
 								onClick={() => fileInputRef.current?.click()}>
 								<Upload className='h-4 w-4' />
-								Upload Video
+								{t('uploadVideo')}
 							</Button>
 							<p className='mt-4 text-xs text-muted-foreground'>
-								Supported formats: MP4, AVI, MOV (max 100MB)
+								{t('supportedFormats')}
 							</p>
 						</div>
 					</div>
@@ -531,14 +535,14 @@ export default function Page() {
 									{accidentDetected && (
 										<div className='flex items-center gap-2 rounded-full border border-red-200 bg-red-100 px-3 py-1 text-sm font-medium text-red-700 dark:border-red-800 dark:bg-red-950 dark:text-red-300'>
 											<div className='h-2 w-2 animate-pulse rounded-full bg-red-500' />
-											Accident
+											{t('badgeAccident')}
 										</div>
 									)}
 
 									{connectionStatus === 'connecting' && (
 										<div className='flex items-center gap-2 rounded-full border border-blue-200 bg-blue-100 px-3 py-1 text-sm font-medium text-blue-700 dark:border-blue-800 dark:bg-blue-950 dark:text-blue-300'>
 											<Loader2 className='h-3 w-3 animate-spin' />
-											Connecting
+											{t('badgeConnecting')}
 										</div>
 									)}
 								</div>
@@ -551,8 +555,8 @@ export default function Page() {
 												<Loader2 className='h-10 w-10 animate-spin text-blue-500' />
 												<p className='text-sm text-muted-foreground'>
 													{!videoLoaded
-														? 'Loading video feed...'
-														: 'Waiting for backend to be ready...'}
+														? t('loadingFeed')
+														: t('waitingBackend')}
 												</p>
 											</div>
 										</div>
@@ -583,10 +587,10 @@ export default function Page() {
 								<div className='grid w-full grid-cols-1 gap-3 sm:grid-cols-3'>
 									<div className='sm:col-span-3'>
 										<label className='mb-1 block text-xs font-medium text-muted-foreground'>
-											Location name (optional)
+											{t('locationLabel')}
 										</label>
 										<Input
-											placeholder='e.g. Highway 1, KM 24'
+											placeholder={t('locationPlaceholder')}
 											value={locationName}
 											onChange={e => setLocationName(e.target.value)}
 											disabled={detectionActive}
@@ -595,7 +599,7 @@ export default function Page() {
 									</div>
 									<div>
 										<label className='mb-1 block text-xs font-medium text-muted-foreground'>
-											Latitude (optional)
+											{t('latitudeLabel')}
 										</label>
 										<Input
 											type='number'
@@ -608,7 +612,7 @@ export default function Page() {
 									</div>
 									<div>
 										<label className='mb-1 block text-xs font-medium text-muted-foreground'>
-											Longitude (optional)
+											{t('longitudeLabel')}
 										</label>
 										<Input
 											type='number'
@@ -636,7 +640,7 @@ export default function Page() {
 										disabled={detectionActive || uploading}
 										className='gap-2'>
 										<X className='h-4 w-4' />
-										Remove
+										{t('remove')}
 									</Button>
 									<Button
 										onClick={handleStartDetection}
@@ -648,10 +652,10 @@ export default function Page() {
 											<Play className='h-4 w-4' />
 										)}
 										{uploading
-											? 'Uploading...'
+											? t('uploading')
 											: detectionActive
-												? 'Detecting...'
-												: 'Start Detection'}
+												? t('detecting')
+												: t('startDetection')}
 									</Button>
 								</div>
 							</CardFooter>
@@ -660,20 +664,20 @@ export default function Page() {
 						<Card className='flex flex-col shadow-xl shadow-black/20'>
 							<CardHeader className='border-b border-border'>
 								<CardTitle className='flex items-center justify-between font-bold tracking-tight'>
-									<span>Detection Logs</span>
+									<span>{t('logsTitle')}</span>
 									{detectionActive ? (
 										<span className='flex items-center gap-2 rounded-full border border-green-200 bg-green-100 px-3 py-1 text-sm font-medium text-green-700 dark:border-green-800/50 dark:bg-green-900/30 dark:text-green-400'>
 											<span className='h-2 w-2 animate-pulse rounded-full bg-green-500'></span>
-											Active
+											{t('logsActive')}
 										</span>
 									) : (
 										<span className='flex items-center gap-2 rounded-full bg-muted px-3 py-1 text-sm font-medium text-muted-foreground'>
-											Inactive
+											{t('logsInactive')}
 										</span>
 									)}
 								</CardTitle>
 								<CardDescription className='text-muted-foreground'>
-									Real-time accident detection analysis
+									{t('logsDesc')}
 								</CardDescription>
 							</CardHeader>
 							<CardContent className='flex flex-grow flex-col p-0'>
@@ -685,10 +689,10 @@ export default function Page() {
 													<Search className='h-8 w-8 text-muted-foreground' />
 												</div>
 												<p className='font-medium text-muted-foreground'>
-													No detection logs yet
+													{t('noLogsTitle')}
 												</p>
 												<p className='mt-1 text-xs text-muted-foreground'>
-													Click &quot;Start Detection&quot; to begin
+													{t('noLogsDesc')}
 												</p>
 											</div>
 										) : (
@@ -719,13 +723,15 @@ export default function Page() {
 								<div className='border-t border-border p-4 text-xs text-muted-foreground'>
 									{logs.length > 0 ? (
 										<div className='flex items-center justify-between'>
-											<span>Total entries: {logs.length}</span>
-											<span>Last update: {logs[logs.length - 1].time}</span>
+											<span>{t('totalEntries', { count: logs.length })}</span>
+											<span>
+												{t('lastUpdate', {
+													time: logs[logs.length - 1].time,
+												})}
+											</span>
 										</div>
 									) : (
-										<div className='text-center'>
-											Detection logs will appear here in real-time
-										</div>
+										<div className='text-center'>{t('logsPlaceholder')}</div>
 									)}
 								</div>
 							</CardContent>

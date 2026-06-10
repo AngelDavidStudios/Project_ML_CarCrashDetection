@@ -14,6 +14,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Clock, Eye, Film } from 'lucide-react';
 import { formatTimeAgo } from '@/lib/incident-helper';
+import { useTranslations } from 'next-intl';
 
 interface Incident {
 	id: string;
@@ -36,6 +37,7 @@ export function PendingVerificationTable({
 	incidents,
 }: PendingVerificationTableProps) {
 	const router = useRouter();
+	const t = useTranslations('PendingTable');
 
 	const handleVerify = (incidentId: string) => {
 		router.push(`/incident_verification/${incidentId}`);
@@ -61,7 +63,7 @@ export function PendingVerificationTable({
 			case '<60%':
 				return <Badge className='bg-blue-600 text-white'>&lt;60%</Badge>;
 			default:
-				return <Badge className='bg-muted text-foreground'>Unknown</Badge>;
+				return <Badge className='bg-muted text-foreground'>{t('unknown')}</Badge>;
 		}
 	};
 
@@ -72,19 +74,19 @@ export function PendingVerificationTable({
 					<TableHeader>
 						<TableRow className='border-border hover:bg-transparent'>
 							<TableHead className='h-10 whitespace-nowrap px-4 text-left font-medium text-muted-foreground'>
-								Severity
+								{t('colSeverity')}
 							</TableHead>
 							<TableHead className='h-10 whitespace-nowrap px-4 text-left font-medium text-muted-foreground'>
-								Location
+								{t('colLocation')}
 							</TableHead>
 							<TableHead className='h-10 whitespace-nowrap px-4 text-left font-medium text-muted-foreground'>
-								Detected
+								{t('colDetected')}
 							</TableHead>
 							<TableHead className='h-10 whitespace-nowrap px-4 text-left font-medium text-muted-foreground'>
-								Confidence
+								{t('colConfidence')}
 							</TableHead>
 							<TableHead className='h-10 whitespace-nowrap px-4 text-right font-medium text-muted-foreground'>
-								Actions
+								{t('colActions')}
 							</TableHead>
 						</TableRow>
 					</TableHeader>
@@ -94,7 +96,7 @@ export function PendingVerificationTable({
 								<TableCell
 									colSpan={5}
 									className='h-24 text-center text-muted-foreground'>
-									No pending incidents found
+									{t('empty')}
 								</TableCell>
 							</TableRow>
 						) : (
@@ -109,7 +111,7 @@ export function PendingVerificationTable({
 										)}
 									</TableCell>
 									<TableCell className='px-4 py-3 text-muted-foreground'>
-										{incident.location || 'Unknown location'}
+										{incident.location || t('unknownLocation')}
 									</TableCell>
 									<TableCell className='px-4 py-3 text-muted-foreground'>
 										<div className='flex items-center'>
@@ -150,7 +152,7 @@ export function PendingVerificationTable({
 													}>
 													<Film className='h-3.5 w-3.5' />
 													<span className='sr-only sm:not-sr-only sm:whitespace-nowrap'>
-														View Video
+														{t('viewVideo')}
 													</span>
 												</Button>
 											)}
@@ -161,7 +163,7 @@ export function PendingVerificationTable({
 												onClick={() => handleVerify(incident.id)}>
 												<Eye className='h-3.5 w-3.5' />
 												<span className='sr-only sm:not-sr-only sm:whitespace-nowrap'>
-													Verify
+													{t('verify')}
 												</span>
 											</Button>
 										</div>

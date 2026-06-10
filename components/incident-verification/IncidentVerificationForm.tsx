@@ -32,6 +32,7 @@ import type {
 	Incident,
 	IncidentVerificationFormData,
 } from '@/types/incident';
+import { useTranslations } from 'next-intl';
 
 const formSchema = z.object({
 	verificationStatus: z.enum(['APPROVED', 'REJECTED']),
@@ -54,6 +55,7 @@ export function IncidentVerificationForm({
 	onVerify,
 	isSubmitting,
 }: IncidentVerificationFormProps) {
+	const t = useTranslations('VerifyForm');
 	const form = useForm<FormValues>({
 		resolver: zodResolver(formSchema),
 		defaultValues: {
@@ -84,23 +86,23 @@ export function IncidentVerificationForm({
 	}
 
 	const incidentTypes = [
-		{ value: IncidentType.VEHICLE_COLLISION, label: 'Vehicle Collision' },
-		{ value: IncidentType.FIRE, label: 'Fire' },
-		{ value: IncidentType.PEDESTRIAN_ACCIDENT, label: 'Pedestrian Accident' },
-		{ value: IncidentType.DEBRIS_ON_ROAD, label: 'Debris on Road' },
-		{ value: IncidentType.STOPPED_VEHICLE, label: 'Stopped Vehicle' },
-		{ value: IncidentType.WRONG_WAY_DRIVER, label: 'Wrong-way Driver' },
-		{ value: IncidentType.OTHER, label: 'Other' },
+		{ value: IncidentType.VEHICLE_COLLISION, label: t('typeVehicleCollision') },
+		{ value: IncidentType.FIRE, label: t('typeFire') },
+		{ value: IncidentType.PEDESTRIAN_ACCIDENT, label: t('typePedestrian') },
+		{ value: IncidentType.DEBRIS_ON_ROAD, label: t('typeDebris') },
+		{ value: IncidentType.STOPPED_VEHICLE, label: t('typeStopped') },
+		{ value: IncidentType.WRONG_WAY_DRIVER, label: t('typeWrongWay') },
+		{ value: IncidentType.OTHER, label: t('typeOther') },
 	];
 
 	return (
 		<Form {...form}>
 			<form onSubmit={form.handleSubmit(onSubmit)} className='space-y-6'>
 				<div className='mb-6 space-y-1'>
-					<h3 className='text-lg font-medium text-foreground'>Decision</h3>
-					<p className='text-sm text-muted-foreground'>
-						Verify whether this incident is genuine or a false detection
-					</p>
+					<h3 className='text-lg font-medium text-foreground'>
+						{t('decision')}
+					</h3>
+					<p className='text-sm text-muted-foreground'>{t('decisionDesc')}</p>
 				</div>
 
 				<div className='grid grid-cols-2 gap-4'>
@@ -121,7 +123,7 @@ export function IncidentVerificationForm({
 									: 'text-muted-foreground'
 							}`}
 						/>
-						<span>Confirm</span>
+						<span>{t('confirm')}</span>
 					</Button>
 
 					<Button
@@ -141,7 +143,7 @@ export function IncidentVerificationForm({
 									: 'text-muted-foreground'
 							}`}
 						/>
-						<span>Reject</span>
+						<span>{t('reject')}</span>
 					</Button>
 				</div>
 
@@ -152,13 +154,13 @@ export function IncidentVerificationForm({
 							name='incidentType'
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel>Incident Type</FormLabel>
+									<FormLabel>{t('incidentTypeLabel')}</FormLabel>
 									<Select
 										onValueChange={field.onChange}
 										value={field.value || undefined}>
 										<FormControl>
 											<SelectTrigger className='border-border bg-muted text-foreground focus:ring-blue-500'>
-												<SelectValue placeholder='Select incident type' />
+												<SelectValue placeholder={t('selectType')} />
 											</SelectTrigger>
 										</FormControl>
 										<SelectContent className='border-border bg-muted text-foreground'>
@@ -181,13 +183,13 @@ export function IncidentVerificationForm({
 							name='severity'
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel>Severity</FormLabel>
+									<FormLabel>{t('severityLabel')}</FormLabel>
 									<Select
 										onValueChange={field.onChange}
 										value={field.value || undefined}>
 										<FormControl>
 											<SelectTrigger className='border-border bg-muted text-foreground focus:ring-blue-500'>
-												<SelectValue placeholder='Select severity' />
+												<SelectValue placeholder={t('selectSeverity')} />
 											</SelectTrigger>
 										</FormControl>
 										<SelectContent className='border-border bg-muted text-foreground'>
@@ -196,7 +198,7 @@ export function IncidentVerificationForm({
 												className='hover:bg-accent'>
 												<div className='flex items-center gap-2'>
 													<div className='h-2 w-2 rounded-full bg-red-500'></div>
-													Critical - Immediate action required
+													{t('severityCritical')}
 												</div>
 											</SelectItem>
 											<SelectItem
@@ -204,7 +206,7 @@ export function IncidentVerificationForm({
 												className='hover:bg-accent'>
 												<div className='flex items-center gap-2'>
 													<div className='h-2 w-2 rounded-full bg-amber-500'></div>
-													Major - Urgent attention needed
+													{t('severityMajor')}
 												</div>
 											</SelectItem>
 											<SelectItem
@@ -212,7 +214,7 @@ export function IncidentVerificationForm({
 												className='hover:bg-accent'>
 												<div className='flex items-center gap-2'>
 													<div className='h-2 w-2 rounded-full bg-blue-500'></div>
-													Minor - Low priority
+													{t('severityMinor')}
 												</div>
 											</SelectItem>
 										</SelectContent>
@@ -234,10 +236,9 @@ export function IncidentVerificationForm({
 										/>
 									</FormControl>
 									<div className='space-y-1 leading-none'>
-										<FormLabel>Requires emergency response</FormLabel>
+										<FormLabel>{t('responseNeededLabel')}</FormLabel>
 										<FormDescription className='text-muted-foreground'>
-											Check this if this incident requires immediate emergency
-											response
+											{t('responseNeededDesc')}
 										</FormDescription>
 									</div>
 								</FormItem>
@@ -252,17 +253,17 @@ export function IncidentVerificationForm({
 					render={({ field }) => (
 						<FormItem>
 							<FormLabel>
-								{isRejected ? 'Rejection Reason' : 'Additional Notes'}
+								{isRejected ? t('rejectionReason') : t('additionalNotes')}
 							</FormLabel>
 							<FormControl>
 								<Textarea
 									{...field}
 									placeholder={
 										isRejected
-											? 'Explain why this is a false detection...'
-											: 'Add any relevant details about the incident...'
+											? t('rejectionPlaceholder')
+											: t('notesPlaceholder')
 									}
-									className='border-border bg-muted text-foreground placeholder-gray-500 focus:border-blue-500 focus:ring-blue-500'
+									className='border-border bg-muted text-foreground placeholder:text-muted-foreground focus:border-blue-500 focus:ring-blue-500'
 									rows={4}
 								/>
 							</FormControl>
@@ -281,10 +282,10 @@ export function IncidentVerificationForm({
 					{isSubmitting ? (
 						<>
 							<Loader2 className='mr-2 h-4 w-4 animate-spin' />
-							{isRejected ? 'Rejecting Incident...' : 'Confirming Incident...'}
+							{isRejected ? t('rejecting') : t('confirming')}
 						</>
 					) : (
-						<>{isRejected ? 'Reject as False Detection' : 'Confirm Incident'}</>
+						<>{isRejected ? t('rejectSubmit') : t('confirmSubmit')}</>
 					)}
 				</Button>
 			</form>

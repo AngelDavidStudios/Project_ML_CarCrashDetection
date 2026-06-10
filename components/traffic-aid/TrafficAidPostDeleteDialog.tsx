@@ -11,6 +11,7 @@ import {
 } from '@/components/ui/alert-dialog';
 import { TrafficAidPost } from './types';
 import { Loader2 } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 interface TrafficAidPostDeleteDialogProps {
 	open: boolean;
@@ -27,6 +28,7 @@ export function TrafficAidPostDeleteDialog({
 	onDelete,
 	loading,
 }: TrafficAidPostDeleteDialogProps) {
+	const t = useTranslations('TrafficAidTable');
 	const postCount = postsToDelete.length;
 
 	return (
@@ -34,21 +36,18 @@ export function TrafficAidPostDeleteDialog({
 			<AlertDialogContent className='border-border bg-card text-foreground'>
 				<AlertDialogHeader>
 					<AlertDialogTitle className='text-xl font-semibold text-foreground'>
-						Delete Traffic Aid {postCount > 1 ? 'Posts' : 'Post'}
+						{t('deleteTitle', { count: postCount })}
 					</AlertDialogTitle>
 					<AlertDialogDescription className='text-muted-foreground'>
-						{postCount > 1 ? (
-							<>
-								Are you sure you want to delete <strong>{postCount}</strong>{' '}
-								traffic aid posts? This action cannot be undone.
-							</>
-						) : (
-							<>
-								Are you sure you want to delete the traffic aid post
-								<strong> {postsToDelete[0]?.name}</strong>? This action cannot
-								be undone.
-							</>
-						)}
+						{postCount > 1
+							? t.rich('deleteDescMany', {
+									count: postCount,
+									b: chunks => <strong>{chunks}</strong>,
+								})
+							: t.rich('deleteDescOne', {
+									name: postsToDelete[0]?.name ?? '',
+									b: chunks => <strong>{chunks}</strong>,
+								})}
 					</AlertDialogDescription>
 				</AlertDialogHeader>
 				{postCount > 1 && (
@@ -67,7 +66,7 @@ export function TrafficAidPostDeleteDialog({
 					<AlertDialogCancel
 						disabled={loading}
 						className='border-border bg-muted text-muted-foreground hover:bg-accent hover:text-foreground'>
-						Cancel
+						{t('cancel')}
 					</AlertDialogCancel>
 					<AlertDialogAction
 						disabled={loading}
@@ -79,10 +78,10 @@ export function TrafficAidPostDeleteDialog({
 						{loading ? (
 							<>
 								<Loader2 className='mr-2 h-4 w-4 animate-spin' />
-								Deleting...
+								{t('deleting')}
 							</>
 						) : (
-							'Delete'
+							t('delete')
 						)}
 					</AlertDialogAction>
 				</AlertDialogFooter>

@@ -22,6 +22,7 @@ import {
 } from '@/components/ui/table';
 import { useToast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils';
+import { useTranslations } from 'next-intl';
 import { TrafficAidPost } from './types';
 import { createColumns } from './TrafficAidPostColumns';
 import { TrafficAidPostTableHeader } from './TrafficAidPostTableHeader';
@@ -33,6 +34,7 @@ import { AddTrafficAidPostDialog } from './AddTrafficAidPostDialog';
 
 export function TrafficAidPostTable() {
 	const { toast } = useToast();
+	const t = useTranslations('TrafficAidTable');
 	const [data, setData] = React.useState<TrafficAidPost[]>([]);
 	const [loading, setLoading] = React.useState<boolean>(true);
 	const [isDialogOpen, setIsDialogOpen] = React.useState(false);
@@ -49,7 +51,7 @@ export function TrafficAidPostTable() {
 		React.useState<VisibilityState>({});
 	const [refreshKey, setRefreshKey] = React.useState(0);
 
-	const columns = React.useMemo(() => createColumns(), []);
+	const columns = React.useMemo(() => createColumns(t), [t]);
 
 	React.useEffect(() => {
 		const fetchData = async () => {
@@ -66,9 +68,8 @@ export function TrafficAidPostTable() {
 			} catch (error) {
 				console.error('Error fetching traffic aid post data:', error);
 				toast({
-					title: 'Error fetching data',
-					description:
-						(error as Error).message || 'Could not load traffic aid post data',
+					title: t('toastFetchErrorTitle'),
+					description: (error as Error).message || t('toastFetchErrorDesc'),
 					variant: 'destructive',
 				});
 			} finally {
@@ -128,15 +129,14 @@ export function TrafficAidPostTable() {
 
 			setData(prevData => [...prevData, createdPost]);
 			toast({
-				title: 'Traffic Aid Post Added',
-				description: `${newPost.name} has been successfully added.`,
+				title: t('toastAddedTitle'),
+				description: t('toastAddedDesc', { name: newPost.name }),
 			});
 		} catch (error) {
 			console.error('Error adding traffic aid post:', error);
 			toast({
-				title: 'Error adding traffic aid post',
-				description:
-					(error as Error).message || 'Failed to add traffic aid post',
+				title: t('toastAddErrorTitle'),
+				description: (error as Error).message || t('toastAddErrorDesc'),
 				variant: 'destructive',
 			});
 		}
@@ -165,17 +165,16 @@ export function TrafficAidPostTable() {
 			setData(remainingData);
 
 			toast({
-				title: 'Successfully deleted',
-				description: `${postsToDelete.length} aid ${postsToDelete.length > 1 ? 'posts' : 'post'} removed.`,
+				title: t('toastDeletedTitle'),
+				description: t('toastDeletedDesc', { count: postsToDelete.length }),
 			});
 
 			setRowSelection({});
 		} catch (error) {
 			console.error('Error deleting traffic aid post(s):', error);
 			toast({
-				title: 'Error deleting traffic aid post',
-				description:
-					(error as Error).message || 'Failed to delete selected posts',
+				title: t('toastDeleteErrorTitle'),
+				description: (error as Error).message || t('toastDeleteErrorDesc'),
 				variant: 'destructive',
 			});
 		} finally {
@@ -196,7 +195,7 @@ export function TrafficAidPostTable() {
 
 		if (selectedRows.length === 0) {
 			toast({
-				description: 'Please select at least one traffic aid post to delete.',
+				description: t('toastSelectAtLeastOne'),
 			});
 			return;
 		}

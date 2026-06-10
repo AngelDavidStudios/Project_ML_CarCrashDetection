@@ -11,6 +11,8 @@ import {
 
 import { NavMain } from '@/components/nav-main';
 import { NavUser } from '@/components/nav-user';
+import { LocaleSwitcher } from '@/components/locale-switcher';
+import { useTranslations } from 'next-intl';
 import {
 	Sidebar,
 	SidebarContent,
@@ -24,6 +26,7 @@ import { useSession } from 'next-auth/react';
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 	const { data: session } = useSession();
+	const t = useTranslations('Nav');
 
 	const data = {
 		user: {
@@ -33,7 +36,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 		},
 		navDetection: [
 			{
-				title: 'Accident Detection',
+				title: t('accidentDetection'),
 				url: '/',
 				icon: ScanSearch,
 				isactive: true,
@@ -41,19 +44,19 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 		],
 		navIncident: [
 			{
-				title: 'Pending Verification',
+				title: t('pendingVerification'),
 				url: '/Pending_Verification',
 				icon: Clock,
 			},
 			{
-				title: 'Ongoing Incidents',
+				title: t('ongoingIncidents'),
 				url: '/Ongoing_Incidents',
 				icon: AlertTriangle,
 			},
 		],
 		navTraffic: [
 			{
-				title: 'Traffic Aid',
+				title: t('trafficAid'),
 				url: '/Traffic_Aid',
 				icon: Siren,
 			},
@@ -72,7 +75,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 								</div>
 								<div className='grid flex-1 text-left text-sm leading-tight'>
 									<span className='truncate font-semibold'>Crash Detection ML</span>
-									<span className='truncate text-xs'>Highway Dashboard</span>
+									<span className='truncate text-xs'>{t('subtitle')}</span>
 								</div>
 							</a>
 						</SidebarMenuButton>
@@ -80,11 +83,14 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 				</SidebarMenu>
 			</SidebarHeader>
 			<SidebarContent>
-				<NavMain heading={'Detection'} items={data.navDetection} />
-				<NavMain heading={'Incident'} items={data.navIncident} />
-				<NavMain heading={'Traffic'} items={data.navTraffic} />
+				<NavMain heading={t('groupDetection')} items={data.navDetection} />
+				<NavMain heading={t('groupIncident')} items={data.navIncident} />
+				<NavMain heading={t('groupTraffic')} items={data.navTraffic} />
 			</SidebarContent>
 			<SidebarFooter>
+				<div className='flex items-center justify-end px-1 pb-1'>
+					<LocaleSwitcher />
+				</div>
 				<NavUser user={data.user} />
 			</SidebarFooter>
 		</Sidebar>

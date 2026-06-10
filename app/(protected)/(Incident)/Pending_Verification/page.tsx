@@ -6,8 +6,10 @@ import { Button } from '@/components/ui/button';
 import { RefreshCw, AlertCircle, CheckCircle } from 'lucide-react';
 import Dashboard from '@/components/dashboard';
 import { useToast } from '@/hooks/use-toast';
+import { useTranslations } from 'next-intl';
 
 export default function PendingVerificationPage() {
+	const t = useTranslations('Pending');
 	const [incidents, setIncidents] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
 	const [error, setError] = useState<string | null>(null);
@@ -28,7 +30,7 @@ export default function PendingVerificationPage() {
 			setIncidents(data);
 		} catch (err) {
 			console.error('Failed to fetch pending incidents:', err);
-			setError('Failed to load pending incidents. Please try again.');
+			setError(t('loadError'));
 		} finally {
 			setIsLoading(false);
 		}
@@ -37,8 +39,8 @@ export default function PendingVerificationPage() {
 	useEffect(() => {
 		fetchPendingIncidents();
 		toast({
-			title: 'Auto-fetching incidents',
-			description: 'Fetching pending incidents every 30 seconds.',
+			title: t('autoFetchTitle'),
+			description: t('autoFetchStart'),
 			variant: 'default',
 		});
 
@@ -46,8 +48,8 @@ export default function PendingVerificationPage() {
 			fetchPendingIncidents();
 
 			toast({
-				title: 'Auto-fetching incidents',
-				description: 'Pending incidents have been refreshed.',
+				title: t('autoFetchTitle'),
+				description: t('autoFetchRefresh'),
 				variant: 'default',
 			});
 		}, 30000);
@@ -61,11 +63,9 @@ export default function PendingVerificationPage() {
 				<div className='flex flex-col justify-between gap-6 sm:flex-row sm:items-center'>
 					<div className='space-y-2'>
 						<h1 className='text-2xl font-bold text-foreground'>
-							Pending Verification
+							{t('title')}
 						</h1>
-						<p className='text-muted-foreground'>
-							Review and verify automatically detected incidents
-						</p>
+						<p className='text-muted-foreground'>{t('subtitle')}</p>
 					</div>
 					<Button
 						onClick={fetchPendingIncidents}
@@ -75,7 +75,7 @@ export default function PendingVerificationPage() {
 						<RefreshCw
 							className={`h-4 w-4 ${isLoading ? 'animate-spin' : ''}`}
 						/>
-						Refresh
+						{t('refresh')}
 					</Button>
 				</div>
 
@@ -103,11 +103,10 @@ export default function PendingVerificationPage() {
 							<div className='mb-3 rounded-full bg-blue-100 dark:bg-blue-900/30 p-3'>
 								<CheckCircle className='h-6 w-6 text-blue-700 dark:text-blue-400' />
 							</div>
-							<h3 className='mb-1 text-xl font-medium text-foreground'>All Clear</h3>
-							<p className='max-w-md text-muted-foreground'>
-								There are no incidents awaiting verification. New incidents will
-								appear here when detected.
-							</p>
+							<h3 className='mb-1 text-xl font-medium text-foreground'>
+								{t('allClear')}
+							</h3>
+							<p className='max-w-md text-muted-foreground'>{t('empty')}</p>
 						</div>
 					) : (
 						<div className='overflow-hidden'>

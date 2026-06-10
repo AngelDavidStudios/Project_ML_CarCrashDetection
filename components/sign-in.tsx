@@ -8,17 +8,19 @@ import {
 	CardTitle,
 } from '@/components/ui/card';
 import { signIn } from '@/auth';
+import { getTranslations } from 'next-intl/server';
 
-export function LoginForm({
+export async function LoginForm({
 	className,
 	...props
 }: React.ComponentPropsWithoutRef<'div'>) {
+	const t = await getTranslations('Auth');
 	return (
 		<div className={cn('flex flex-col gap-6', className)} {...props}>
 			<Card>
 				<CardHeader className='text-center'>
-					<CardTitle className='text-xl'>Welcome back</CardTitle>
-					<CardDescription>Login with your Google account</CardDescription>
+					<CardTitle className='text-xl'>{t('welcome')}</CardTitle>
+					<CardDescription>{t('loginWith')}</CardDescription>
 				</CardHeader>
 				<CardContent>
 					<form
@@ -35,7 +37,7 @@ export function LoginForm({
 											fill='currentColor'
 										/>
 									</svg>
-									Login with Google
+									{t('loginGoogle')}
 								</Button>
 							</div>
 						</div>
@@ -43,8 +45,10 @@ export function LoginForm({
 				</CardContent>
 			</Card>
 			<div className='text-balance text-center text-xs text-muted-foreground [&_a]:underline [&_a]:underline-offset-4 [&_a]:hover:text-primary'>
-				By clicking continue, you agree to our <a href='#'>Terms of Service</a>{' '}
-				and <a href='#'>Privacy Policy</a>.
+				{t.rich('terms', {
+					terms: chunks => <a href='#'>{chunks}</a>,
+					privacy: chunks => <a href='#'>{chunks}</a>,
+				})}
 			</div>
 		</div>
 	);

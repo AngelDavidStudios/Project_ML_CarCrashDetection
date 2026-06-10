@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { Loader2, AlertCircle, ZoomIn, ZoomOut, Download } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
+import { useTranslations } from 'next-intl';
 
 interface AccidentImageProps {
 	imageUrl?: string | null;
@@ -14,9 +15,11 @@ interface AccidentImageProps {
 
 export function AccidentImage({
 	imageUrl,
-	alt = 'Accident image',
+	alt,
 	className = '',
 }: AccidentImageProps) {
+	const t = useTranslations('Verification');
+	const imageAlt = alt ?? t('imgDefaultAlt');
 	const [isLoading, setIsLoading] = useState(true);
 	const [error, setError] = useState<string | null>(null);
 	const [isZoomed, setIsZoomed] = useState(false);
@@ -39,7 +42,7 @@ export function AccidentImage({
 
 	const handleImageError = () => {
 		setIsLoading(false);
-		setError('Failed to load accident image');
+		setError(t('imgError'));
 	};
 
 	const handleDownload = () => {
@@ -72,7 +75,7 @@ export function AccidentImage({
 					<div className='relative h-full w-full'>
 						<Image
 							src={processedUrl}
-							alt={alt}
+							alt={imageAlt}
 							fill
 							className='object-contain'
 							onLoadingComplete={handleImageLoad}
@@ -105,7 +108,7 @@ export function AccidentImage({
 					<div className='relative h-[80vh]'>
 						<Image
 							src={processedUrl}
-							alt={alt}
+							alt={imageAlt}
 							fill
 							className='object-contain'
 						/>

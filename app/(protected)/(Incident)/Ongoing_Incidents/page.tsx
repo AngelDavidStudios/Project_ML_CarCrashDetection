@@ -26,8 +26,10 @@ import {
 import { formatTimeAgo, getIncidentTypeLabel } from '@/lib/incident-helper';
 import Dashboard from '@/components/dashboard';
 import type { Incident } from '@/types/incident';
+import { useTranslations } from 'next-intl';
 
 export default function OngoingIncidentsPage() {
+	const t = useTranslations('Ongoing');
 	const [incidents, setIncidents] = useState<Incident[]>([]);
 	const [isLoading, setIsLoading] = useState(true);
 	const [error, setError] = useState<string | null>(null);
@@ -47,7 +49,7 @@ export default function OngoingIncidentsPage() {
 			setIncidents(data);
 		} catch (err) {
 			console.error('Failed to fetch verified incidents:', err);
-			setError('Failed to load verified incidents. Please try again.');
+			setError(t('loadError'));
 		} finally {
 			setIsLoading(false);
 		}
@@ -80,7 +82,7 @@ export default function OngoingIncidentsPage() {
 			fetchVerifiedIncidents();
 		} catch (err) {
 			console.error('Failed to initiate response:', err);
-			alert('Failed to initiate response. Please try again.');
+			alert(t('initiateError'));
 		}
 	};
 
@@ -103,7 +105,7 @@ export default function OngoingIncidentsPage() {
 			fetchVerifiedIncidents();
 		} catch (err) {
 			console.error('Failed to resolve incident:', err);
-			alert('Failed to resolve incident. Please try again.');
+			alert(t('resolveError'));
 		}
 	};
 
@@ -112,10 +114,8 @@ export default function OngoingIncidentsPage() {
 			<div className='container mx-auto py-6'>
 				<div className='mb-6 flex flex-col justify-between gap-4 sm:flex-row sm:items-center'>
 					<div>
-						<h1 className='text-2xl font-bold text-foreground'>Ongoing Incidents</h1>
-						<p className='text-muted-foreground'>
-							Monitor and manage verified incidents
-						</p>
+						<h1 className='text-2xl font-bold text-foreground'>{t('title')}</h1>
+						<p className='text-muted-foreground'>{t('subtitle')}</p>
 					</div>
 					<Button
 						onClick={fetchVerifiedIncidents}
@@ -125,7 +125,7 @@ export default function OngoingIncidentsPage() {
 						<RefreshCw
 							className={`h-4 w-4 ${isLoading ? 'animate-spin' : ''}`}
 						/>
-						Refresh
+						{t('refresh')}
 					</Button>
 				</div>
 
@@ -152,11 +152,10 @@ export default function OngoingIncidentsPage() {
 						<div className='mb-3 rounded-full bg-green-100 dark:bg-green-900/30 p-3'>
 							<CheckCircle className='h-6 w-6 text-green-700 dark:text-green-400' />
 						</div>
-						<h3 className='mb-1 text-xl font-medium text-foreground'>All Clear</h3>
-						<p className='max-w-md text-muted-foreground'>
-							There are no ongoing incidents at this time. Verified incidents
-							will appear here.
-						</p>
+						<h3 className='mb-1 text-xl font-medium text-foreground'>
+							{t('allClear')}
+						</h3>
+						<p className='max-w-md text-muted-foreground'>{t('empty')}</p>
 					</div>
 				) : (
 					<div className='rounded-md border border-border'>
@@ -165,22 +164,22 @@ export default function OngoingIncidentsPage() {
 								<TableHeader>
 									<TableRow className='border-border hover:bg-transparent'>
 										<TableHead className='h-10 whitespace-nowrap px-4 text-left font-medium text-muted-foreground'>
-											Status
+											{t('colStatus')}
 										</TableHead>
 										<TableHead className='h-10 whitespace-nowrap px-4 text-left font-medium text-muted-foreground'>
-											Type & Severity
+											{t('colTypeSeverity')}
 										</TableHead>
 										<TableHead className='h-10 whitespace-nowrap px-4 text-left font-medium text-muted-foreground'>
-											Location
+											{t('colLocation')}
 										</TableHead>
 										<TableHead className='h-10 whitespace-nowrap px-4 text-left font-medium text-muted-foreground'>
-											Detected
+											{t('colDetected')}
 										</TableHead>
 										<TableHead className='h-10 whitespace-nowrap px-4 text-left font-medium text-muted-foreground'>
-											Verified By
+											{t('colVerifiedBy')}
 										</TableHead>
 										<TableHead className='h-10 whitespace-nowrap px-4 text-right font-medium text-muted-foreground'>
-											Actions
+											{t('colActions')}
 										</TableHead>
 									</TableRow>
 								</TableHeader>
@@ -195,7 +194,9 @@ export default function OngoingIncidentsPage() {
 														<div className='rounded-full bg-green-500/20 p-1'>
 															<CheckCheck className='h-4 w-4 text-green-500' />
 														</div>
-														<span className='ml-2 text-muted-foreground'>Resolved</span>
+														<span className='ml-2 text-muted-foreground'>
+															{t('statusResolved')}
+														</span>
 													</div>
 												) : incident.responseInitiated ? (
 													<div className='flex items-center'>
@@ -203,7 +204,7 @@ export default function OngoingIncidentsPage() {
 															<Bell className='h-4 w-4 text-blue-500' />
 														</div>
 														<span className='ml-2 text-muted-foreground'>
-															Response Initiated
+															{t('statusResponseInitiated')}
 														</span>
 													</div>
 												) : incident.responseNeeded ? (
@@ -212,7 +213,7 @@ export default function OngoingIncidentsPage() {
 															<AlertCircle className='h-4 w-4 text-red-500' />
 														</div>
 														<span className='ml-2 text-muted-foreground'>
-															Response Needed
+															{t('statusResponseNeeded')}
 														</span>
 													</div>
 												) : (
@@ -235,7 +236,7 @@ export default function OngoingIncidentsPage() {
 												<div className='flex items-center gap-1'>
 													<MapPin className='h-3.5 w-3.5 text-muted-foreground' />
 													<span>
-														{incident.location || 'Unknown location'}
+														{incident.location || t('unknownLocation')}
 													</span>
 												</div>
 											</TableCell>
@@ -260,7 +261,9 @@ export default function OngoingIncidentsPage() {
 														</span>
 													</div>
 												) : (
-													<span className='text-muted-foreground'>Unknown</span>
+													<span className='text-muted-foreground'>
+														{t('unknown')}
+													</span>
 												)}
 											</TableCell>
 											<TableCell className='px-4 py-3 text-right'>
@@ -277,7 +280,7 @@ export default function OngoingIncidentsPage() {
 																}>
 																<Bell className='h-3.5 w-3.5' />
 																<span className='sr-only sm:not-sr-only sm:whitespace-nowrap'>
-																	Initiate Response
+																	{t('initiateResponse')}
 																</span>
 															</Button>
 														)}
@@ -292,7 +295,7 @@ export default function OngoingIncidentsPage() {
 															}>
 															<CheckCheck className='h-3.5 w-3.5' />
 															<span className='sr-only sm:not-sr-only sm:whitespace-nowrap'>
-																Mark as Resolved
+																{t('markResolved')}
 															</span>
 														</Button>
 													)}

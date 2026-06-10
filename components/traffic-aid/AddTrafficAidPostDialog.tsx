@@ -21,6 +21,7 @@ import {
 import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
 import dynamic from 'next/dynamic';
+import { useTranslations } from 'next-intl';
 
 const MapComponent = dynamic(() => import('@/components/MapComponent'), {
 	ssr: false,
@@ -49,6 +50,7 @@ export function AddTrafficAidPostDialog({
 	onClose,
 	onAddPost,
 }: AddTrafficAidPostDialogProps) {
+	const t = useTranslations('TrafficAidForm');
 	const [name, setName] = React.useState('');
 	const [address, setAddress] = React.useState('');
 	const [status, setStatus] = React.useState('active');
@@ -89,7 +91,7 @@ export function AddTrafficAidPostDialog({
 
 	const handleSubmit = () => {
 		if (!name || !address || !location || !contactNumber) {
-			alert('Please fill in all required fields and select a location.');
+			alert(t('requiredFieldsAlert'));
 			return;
 		}
 
@@ -115,7 +117,7 @@ export function AddTrafficAidPostDialog({
 				<div className='flex h-full flex-col'>
 					<DialogHeader className='border-b border-border p-6'>
 						<DialogTitle className='text-xl font-semibold text-foreground'>
-							Add Traffic Aid Post
+							{t('addTitle')}
 						</DialogTitle>
 					</DialogHeader>
 
@@ -125,26 +127,26 @@ export function AddTrafficAidPostDialog({
 							{/* Post Name */}
 							<div>
 								<label className='mb-2 block text-sm font-medium text-muted-foreground'>
-									Post Name*
+									{t('nameLabel')}*
 								</label>
 								<Input
-									placeholder='Enter post name'
+									placeholder={t('namePlaceholder')}
 									value={name}
 									onChange={e => setName(e.target.value)}
-									className='border-border bg-muted text-foreground placeholder-gray-500 focus:border-blue-500 focus:ring-blue-500'
+									className='border-border bg-muted text-foreground placeholder:text-muted-foreground focus:border-blue-500 focus:ring-blue-500'
 								/>
 							</div>
 
 							{/* Post Address */}
 							<div>
 								<label className='mb-2 block text-sm font-medium text-muted-foreground'>
-									Address*
+									{t('addressLabel')}*
 								</label>
 								<Textarea
-									placeholder='Enter complete address'
+									placeholder={t('addressPlaceholder')}
 									value={address}
 									onChange={e => setAddress(e.target.value)}
-									className='border-border bg-muted text-foreground placeholder-gray-500 focus:border-blue-500 focus:ring-blue-500'
+									className='border-border bg-muted text-foreground placeholder:text-muted-foreground focus:border-blue-500 focus:ring-blue-500'
 									rows={3}
 								/>
 							</div>
@@ -152,20 +154,20 @@ export function AddTrafficAidPostDialog({
 							{/* Contact Number */}
 							<div>
 								<label className='mb-2 block text-sm font-medium text-muted-foreground'>
-									Contact Number*
+									{t('contactLabel')}*
 								</label>
 								<Input
-									placeholder='Enter contact number'
+									placeholder={t('contactPlaceholder')}
 									value={contactNumber}
 									onChange={e => setContactNumber(e.target.value)}
-									className='border-border bg-muted text-foreground placeholder-gray-500 focus:border-blue-500 focus:ring-blue-500'
+									className='border-border bg-muted text-foreground placeholder:text-muted-foreground focus:border-blue-500 focus:ring-blue-500'
 								/>
 							</div>
 
 							{/* Available Services */}
 							<div>
 								<label className='mb-3 block text-sm font-medium text-muted-foreground'>
-									Available Services
+									{t('servicesLabel')}
 								</label>
 								<div className='space-y-3'>
 									<div className='flex items-center space-x-2'>
@@ -178,7 +180,7 @@ export function AddTrafficAidPostDialog({
 											className='border-border data-[state=checked]:bg-blue-600 data-[state=checked]:text-white'
 										/>
 										<Label htmlFor='police' className='text-muted-foreground'>
-											Traffic Police
+											{t('police')}
 										</Label>
 									</div>
 									<div className='flex items-center space-x-2'>
@@ -191,7 +193,7 @@ export function AddTrafficAidPostDialog({
 											className='border-border data-[state=checked]:bg-blue-600 data-[state=checked]:text-white'
 										/>
 										<Label htmlFor='ambulance' className='text-muted-foreground'>
-											Ambulance
+											{t('ambulance')}
 										</Label>
 									</div>
 									<div className='flex items-center space-x-2'>
@@ -204,7 +206,7 @@ export function AddTrafficAidPostDialog({
 											className='border-border data-[state=checked]:bg-blue-600 data-[state=checked]:text-white'
 										/>
 										<Label htmlFor='fire' className='text-muted-foreground'>
-											Fire Department
+											{t('fire')}
 										</Label>
 									</div>
 								</div>
@@ -213,26 +215,26 @@ export function AddTrafficAidPostDialog({
 							{/* Operating Hours */}
 							<div>
 								<label className='mb-2 block text-sm font-medium text-muted-foreground'>
-									Operating Hours
+									{t('hoursLabel')}
 								</label>
 								<Input
-									placeholder='e.g., 24/7 or 8:00 AM - 8:00 PM'
+									placeholder={t('hoursPlaceholder')}
 									value={operatingHours}
 									onChange={e => setOperatingHours(e.target.value)}
-									className='border-border bg-muted text-foreground placeholder-gray-500 focus:border-blue-500 focus:ring-blue-500'
+									className='border-border bg-muted text-foreground placeholder:text-muted-foreground focus:border-blue-500 focus:ring-blue-500'
 								/>
 							</div>
 
 							{/* Additional Info */}
 							<div>
 								<label className='mb-2 block text-sm font-medium text-muted-foreground'>
-									Additional Information
+									{t('additionalLabel')}
 								</label>
 								<Textarea
-									placeholder='Enter any additional details about this aid post'
+									placeholder={t('additionalPlaceholder')}
 									value={additionalInfo}
 									onChange={e => setAdditionalInfo(e.target.value)}
-									className='border-border bg-muted text-foreground placeholder-gray-500 focus:border-blue-500 focus:ring-blue-500'
+									className='border-border bg-muted text-foreground placeholder:text-muted-foreground focus:border-blue-500 focus:ring-blue-500'
 									rows={3}
 								/>
 							</div>
@@ -240,23 +242,23 @@ export function AddTrafficAidPostDialog({
 							{/* Post Status */}
 							<div>
 								<label className='mb-2 block text-sm font-medium text-muted-foreground'>
-									Status
+									{t('statusLabel')}
 								</label>
 								<Select value={status} onValueChange={setStatus}>
 									<SelectTrigger className='border-border bg-muted text-foreground focus:border-blue-500 focus:ring-blue-500'>
-										<SelectValue placeholder='Select status' />
+										<SelectValue placeholder={t('selectStatus')} />
 									</SelectTrigger>
 									<SelectContent className='border-border bg-muted text-foreground'>
 										<SelectItem value='active' className='hover:bg-accent'>
-											Active
+											{t('statusActive')}
 										</SelectItem>
 										<SelectItem value='inactive' className='hover:bg-accent'>
-											Inactive
+											{t('statusInactive')}
 										</SelectItem>
 										<SelectItem
 											value='maintenance'
 											className='hover:bg-accent'>
-											Under Maintenance
+											{t('statusMaintenance')}
 										</SelectItem>
 									</SelectContent>
 								</Select>
@@ -266,17 +268,21 @@ export function AddTrafficAidPostDialog({
 							{location && (
 								<div className='rounded-md border border-border bg-muted p-4'>
 									<h3 className='mb-2 text-sm font-medium text-muted-foreground'>
-										Selected Location
+										{t('selectedLocation')}
 									</h3>
 									<div className='grid grid-cols-2 gap-2'>
 										<div>
-											<p className='text-xs text-muted-foreground'>Latitude</p>
+											<p className='text-xs text-muted-foreground'>
+												{t('latitude')}
+											</p>
 											<p className='text-sm text-foreground'>
 												{location.latitude.toFixed(6)}
 											</p>
 										</div>
 										<div>
-											<p className='text-xs text-muted-foreground'>Longitude</p>
+											<p className='text-xs text-muted-foreground'>
+												{t('longitude')}
+											</p>
 											<p className='text-sm text-foreground'>
 												{location.longitude.toFixed(6)}
 											</p>
@@ -294,12 +300,12 @@ export function AddTrafficAidPostDialog({
 									variant='outline'
 									onClick={onClose}
 									className='border-border text-muted-foreground hover:bg-muted hover:text-foreground'>
-									Cancel
+									{t('cancel')}
 								</Button>
 								<Button
 									onClick={handleSubmit}
 									className='bg-blue-600 text-white hover:bg-blue-700'>
-									Add Aid Post
+									{t('addSubmit')}
 								</Button>
 							</DialogFooter>
 						</div>
@@ -308,10 +314,10 @@ export function AddTrafficAidPostDialog({
 						<div className='flex w-2/3 flex-col'>
 							<div className='p-6 pb-3'>
 								<label className='mb-2 block text-sm font-medium text-muted-foreground'>
-									Select Location on Map*
+									{t('mapLabel')}*
 								</label>
 								<p className='mb-2 text-sm text-muted-foreground'>
-									Click on the map to set the aid post location
+									{t('mapHint')}
 								</p>
 							</div>
 							<div className='relative flex-1 px-6 pb-6'>

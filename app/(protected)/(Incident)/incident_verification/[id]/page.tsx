@@ -21,6 +21,7 @@ import {
 import { formatIncidentDate, formatTimeAgo } from '@/lib/incident-helper';
 import Dashboard from '@/components/dashboard';
 import type { Incident, IncidentVerificationFormData } from '@/types/incident';
+import { useTranslations } from 'next-intl';
 
 interface IncidentVerificationPageProps {
 	params: Promise<{ id: string }>;
@@ -30,6 +31,7 @@ export default function IncidentVerificationDetailPage({
 	params,
 }: IncidentVerificationPageProps) {
 	const router = useRouter();
+	const t = useTranslations('Verification');
 
 	const [id, setId] = useState<string | null>(null);
 
@@ -67,7 +69,7 @@ export default function IncidentVerificationDetailPage({
 				const response = await fetch(`/api/incidents/${id}`);
 				if (!response.ok) {
 					if (response.status === 404) {
-						throw new Error('Incident not found');
+						throw new Error(t('errIncidentNotFound'));
 					}
 					throw new Error(`Error ${response.status}: ${response.statusText}`);
 				}
@@ -76,9 +78,7 @@ export default function IncidentVerificationDetailPage({
 			} catch (err) {
 				console.error('Failed to fetch incident:', err);
 				setError(
-					err instanceof Error
-						? err.message
-						: 'Failed to load incident details'
+					err instanceof Error ? err.message : t('errLoadDetails')
 				);
 			} finally {
 				setIsLoading(false);
@@ -111,7 +111,7 @@ export default function IncidentVerificationDetailPage({
 		} catch (err) {
 			console.error('Failed to verify incident:', err);
 			setError(
-				err instanceof Error ? err.message : 'Failed to submit verification'
+				err instanceof Error ? err.message : t('errSubmit')
 			);
 			setIsSubmitting(false);
 		}
@@ -151,18 +151,18 @@ export default function IncidentVerificationDetailPage({
 						className='mb-6 gap-2 border-border bg-muted text-muted-foreground hover:bg-accent'
 						onClick={() => router.push('/Pending_Verification')}>
 						<ArrowLeft className='h-4 w-4' />
-						Back to Verification Queue
+						{t('backToQueue')}
 					</Button>
 					<div className='rounded-md border border-red-200 dark:border-red-800 bg-red-100 dark:bg-red-900/30 p-6 text-center'>
 						<AlertCircle className='mx-auto mb-3 h-10 w-10 text-red-700 dark:text-red-400' />
 						<h3 className='text-xl font-semibold text-foreground'>
-							Error Loading Incident
+							{t('errorTitle')}
 						</h3>
 						<p className='mt-2 text-red-700 dark:text-red-300'>{error}</p>
 						<Button
 							className='mt-4 bg-red-700 hover:bg-red-800'
 							onClick={() => window.location.reload()}>
-							Try Again
+							{t('tryAgain')}
 						</Button>
 					</div>
 				</div>
@@ -179,21 +179,21 @@ export default function IncidentVerificationDetailPage({
 						className='mb-6 gap-2 border-border bg-muted text-muted-foreground hover:bg-accent'
 						onClick={() => router.push('/Pending_Verification')}>
 						<ArrowLeft className='h-4 w-4' />
-						Back to Verification Queue
+						{t('backToQueue')}
 					</Button>
 					<div className='rounded-md border border-amber-200 dark:border-amber-800 bg-amber-100 dark:bg-amber-900/30 p-6 text-center'>
 						<Info className='mx-auto mb-3 h-10 w-10 text-amber-700 dark:text-amber-400' />
 						<h3 className='text-xl font-semibold text-foreground'>
-							Incident Not Found
+							{t('notFoundTitle')}
 						</h3>
 						<p className='mt-2 text-amber-700 dark:text-amber-300'>
-							This incident may have been removed or already verified.
+							{t('notFoundDesc')}
 						</p>
 						<Button
 							variant='outline'
 							className='mt-4 border-amber-200 dark:border-amber-700 bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 hover:bg-amber-200 dark:hover:bg-amber-900/50'
 							onClick={() => router.push('/Pending_Verification')}>
-							Return to Verification Queue
+							{t('returnToQueue')}
 						</Button>
 					</div>
 				</div>
@@ -215,13 +215,14 @@ export default function IncidentVerificationDetailPage({
 				<div className='mb-6'>
 					<div className='flex items-center gap-3'>
 						<h1 className='text-2xl font-bold text-foreground'>
-							Incident Verification
+							{t('pageTitle')}
 						</h1>
 						<VerificationStatusBadge status={incident.verificationStatus} />
 					</div>
 					<p className='text-muted-foreground'>
-						Review and verify incident at{' '}
-						{incident.location || 'an unknown location'}
+						{t('pageSubtitle', {
+							location: incident.location || t('anUnknownLocation'),
+						})}
 					</p>
 				</div>
 
@@ -231,7 +232,9 @@ export default function IncidentVerificationDetailPage({
 						<div className='overflow-hidden rounded-lg border border-border bg-black'>
 							<AccidentImage
 								imageUrl={incident.imageUrl}
-								alt={`Accident detected at ${incident.location || 'unknown location'}`}
+								alt={t('imageAlt', {
+									location: incident.location || t('unknownLocation'),
+								})}
 								className='rounded-md border border-border'
 							/>
 						</div>
@@ -239,20 +242,24 @@ export default function IncidentVerificationDetailPage({
 						{/* Incident Details */}
 						<div className='rounded-lg border border-border bg-muted p-4'>
 							<h3 className='mb-4 text-lg font-medium text-foreground'>
-								Incident Details
+								{t('detailsTitle')}
 							</h3>
 							<div className='grid grid-cols-1 gap-4 md:grid-cols-2'>
 								<div className='space-y-1'>
-									<p className='text-sm text-muted-foreground'>Location</p>
+									<p className='text-sm text-muted-foreground'>
+										{t('fieldLocation')}
+									</p>
 									<div className='flex items-center gap-1'>
 										<MapPin className='h-4 w-4 text-muted-foreground' />
 										<p className='font-medium text-foreground'>
-											{incident.location || 'Unknown location'}
+											{incident.location || t('unknownLocation')}
 										</p>
 									</div>
 								</div>
 								<div className='space-y-1'>
-									<p className='text-sm text-muted-foreground'>Detected At</p>
+									<p className='text-sm text-muted-foreground'>
+										{t('fieldDetectedAt')}
+									</p>
 									<div className='flex items-center gap-1'>
 										<Calendar className='h-4 w-4 text-muted-foreground' />
 										<p className='font-medium text-foreground'>
@@ -261,7 +268,9 @@ export default function IncidentVerificationDetailPage({
 									</div>
 								</div>
 								<div className='space-y-1'>
-									<p className='text-sm text-muted-foreground'>Time Since Detection</p>
+									<p className='text-sm text-muted-foreground'>
+										{t('fieldTimeSince')}
+									</p>
 									<div className='flex items-center gap-1'>
 										<Clock className='h-4 w-4 text-muted-foreground' />
 										<p className='font-medium text-foreground'>
@@ -270,7 +279,9 @@ export default function IncidentVerificationDetailPage({
 									</div>
 								</div>
 								<div className='space-y-1'>
-									<p className='text-sm text-muted-foreground'>AI Confidence</p>
+									<p className='text-sm text-muted-foreground'>
+										{t('fieldConfidence')}
+									</p>
 									<div className='flex items-center gap-2'>
 										<div className='h-2 w-full max-w-24 rounded-full bg-accent'>
 											<div
@@ -293,7 +304,9 @@ export default function IncidentVerificationDetailPage({
 								</div>
 								{incident.incidentType && (
 									<div className='space-y-1'>
-										<p className='text-sm text-muted-foreground'>Incident Type</p>
+										<p className='text-sm text-muted-foreground'>
+											{t('fieldType')}
+										</p>
 										<p className='font-medium text-foreground'>
 											{incident.incidentType}
 										</p>
@@ -301,7 +314,9 @@ export default function IncidentVerificationDetailPage({
 								)}
 								{incident.severity && (
 									<div className='space-y-1'>
-										<p className='text-sm text-muted-foreground'>Severity</p>
+										<p className='text-sm text-muted-foreground'>
+											{t('fieldSeverity')}
+										</p>
 										<SeverityBadge severity={incident.severity} />
 									</div>
 								)}
