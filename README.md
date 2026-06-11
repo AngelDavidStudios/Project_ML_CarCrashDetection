@@ -1,4 +1,4 @@
-<h1 align="center">Crash Detection ML: Real-Time Road Accident Detection System using YOLO11m and CCTV Surveillance</h1>
+<h1 align="center">Crash Detection ML: Real-Time Road Accident Detection System using YOLO11m</h1>
 
 **Crash Detection ML** is an AI-powered real-time accident detection system designed to revolutionize road safety. By leveraging advanced computer vision technology, Crash Detection ML detects vehicle collisions and accident events through CCTV footage and instantly notifies highway authorities, enabling swift emergency responses.
 
