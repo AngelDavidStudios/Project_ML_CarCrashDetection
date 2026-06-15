@@ -212,7 +212,12 @@ async def process_video_stream(websocket: WebSocket, video_url: str, connection_
         detected_accident_type = None
         detected_confidence = None
         
-        if video_url.startswith('/'):
+        if os.path.isabs(video_url) and os.path.exists(video_url):
+            # App macOS: el VideoService copia el vídeo a su workspace y envía la
+            # ruta absoluta legible directamente.
+            video_path = video_url
+        elif video_url.startswith('/'):
+            # Frontend Next.js: URL relativa servida desde frontend/public.
             video_path = f"../frontend/public{video_url}"
         else:
             video_path = video_url
