@@ -32,10 +32,16 @@ The model was trained on a combined dataset of **~10,000 images** from three Rob
 ## Built With
 
 <p>
-  <img src="https://skillicons.dev/icons?i=nextjs,fastapi,postgres,tailwindcss,prisma,pytorch" alt="Tech Stack" />
+  <img src="https://skillicons.dev/icons?i=fastapi,aws,swift,graphql,pytorch" alt="Tech Stack" />
+  <img src="https://thesvg.org/icons/aws-aws-amplify/default.svg" alt="Tech Stack" width="47px" hspace="7" style="border-radius: 10px;"/>
+  <img src="https://thesvg.org/icons/aws-amazon-cognito/default.svg" alt="Tech Stack" width="47px" style="border-radius: 10px;"/>
+  <img src="https://thesvg.org/icons/dynamodb/default.svg" alt="Tech Stack" width="47px" hspace="7" style="border-radius: 10px;"/>
+  <img src="https://thesvg.org/icons/aws-amazon-simple-storage-service/default.svg" alt="Tech Stack" width="47px" style="border-radius: 10px;"/>
+  <img src="https://thesvg.org/icons/aws-amazon-sagemaker-ai/default.svg" alt="Tech Stack" width="47px" hspace="7" style="border-radius: 10px;"/>
 </p>
 
-**Full stack:** YOLO11m (Ultralytics) · CoreML (Apple Neural Engine) · OpenCV · Supervision (Roboflow) · PyTorch · FastAPI · Next.js 15 · Prisma · PostgreSQL · AWS SageMaker (training)
+
+**Full stack:** YOLO11m (Ultralytics) · CoreML (Apple Neural Engine) · OpenCV · Supervision (Roboflow) · PyTorch · FastAPI · Swift · SwiftUI · AWS Amplify · AWS Cognito · AWS DynamoDB · AWS S3 · AWS SageMaker (training)
 
 ---
 
