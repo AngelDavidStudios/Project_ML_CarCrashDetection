@@ -1,0 +1,16 @@
+# === Amplify backend (reservado — NO se commitea) ===
+amplify/
+.amplify/
+amplify_outputs*.json
+amplifyconfiguration*
+node_modules/
+package.json
+package-lock.json
+
+# === macOS / Xcode ===
+.DS_Store
+xcuserdata/
+*.xcuserstate
+build/
+DerivedData/
+*.xcscmblueprint

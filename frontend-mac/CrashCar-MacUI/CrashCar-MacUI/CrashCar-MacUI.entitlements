@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<!--
+	  Keychain Sharing (keychain-access-groups): obligatorio para Amplify Auth en
+	  macOS. Amplify usa el Data Protection Keychain, que exige este entitlement;
+	  sin él el KeychainStore falla con errSecMissingEntitlement (-34018) y el
+	  Hosted UI no puede construir la signInURI. El App Sandbox, Hardened Runtime,
+	  red saliente y archivos seleccionados siguen viniendo de los build settings
+	  ENABLE_* y se fusionan con este archivo en tiempo de build.
+	-->
+	<key>keychain-access-groups</key>
+	<array>
+		<string>$(AppIdentifierPrefix)com.adstudios.CrashCar-MacUI</string>
+	</array>
+</dict>
+</plist>

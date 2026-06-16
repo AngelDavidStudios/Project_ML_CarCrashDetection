@@ -1,0 +1,674 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0BED357C2FDB4D1000B26D1A /* AWSAPIPlugin in Frameworks */ = {isa = PBXBuildFile; productRef = 0BED357B2FDB4D1000B26D1A /* AWSAPIPlugin */; };
+		0BED357E2FDB4D1000B26D1A /* AWSCloudWatchLoggingPlugin in Frameworks */ = {isa = PBXBuildFile; productRef = 0BED357D2FDB4D1000B26D1A /* AWSCloudWatchLoggingPlugin */; };
+		0BED35802FDB4D1000B26D1A /* AWSCognitoAuthPlugin in Frameworks */ = {isa = PBXBuildFile; productRef = 0BED357F2FDB4D1000B26D1A /* AWSCognitoAuthPlugin */; };
+		0BED35822FDB4D1000B26D1A /* AWSDataStorePlugin in Frameworks */ = {isa = PBXBuildFile; productRef = 0BED35812FDB4D1000B26D1A /* AWSDataStorePlugin */; };
+		0BED35842FDB4D1000B26D1A /* AWSPluginsCore in Frameworks */ = {isa = PBXBuildFile; productRef = 0BED35832FDB4D1000B26D1A /* AWSPluginsCore */; };
+		0BED35862FDB4D1000B26D1A /* AWSS3StoragePlugin in Frameworks */ = {isa = PBXBuildFile; productRef = 0BED35852FDB4D1000B26D1A /* AWSS3StoragePlugin */; };
+		0BED35882FDB4D1000B26D1A /* Amplify in Frameworks */ = {isa = PBXBuildFile; productRef = 0BED35872FDB4D1000B26D1A /* Amplify */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		0BA1163A2FDA431700E2D614 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0BA116242FDA431600E2D614 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0BA1162B2FDA431600E2D614;
+			remoteInfo = "CrashCar-MacUI";
+		};
+		0BA116442FDA431700E2D614 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0BA116242FDA431600E2D614 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0BA1162B2FDA431600E2D614;
+			remoteInfo = "CrashCar-MacUI";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		0BA1162C2FDA431600E2D614 /* CrashCar-MacUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CrashCar-MacUI.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		0BA116392FDA431700E2D614 /* CrashCar-MacUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "CrashCar-MacUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		0BA116432FDA431700E2D614 /* CrashCar-MacUIUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "CrashCar-MacUIUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		0BA1162E2FDA431600E2DFFF /* Exceptions for "CrashCar-MacUI" folder in "CrashCar-MacUI" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 0BA1162B2FDA431600E2D614 /* CrashCar-MacUI */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		0BA1162E2FDA431600E2D614 /* CrashCar-MacUI */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				0BA1162E2FDA431600E2DFFF /* Exceptions for "CrashCar-MacUI" folder in "CrashCar-MacUI" target */,
+			);
+			path = "CrashCar-MacUI";
+			sourceTree = "<group>";
+		};
+		0BA1163C2FDA431700E2D614 /* CrashCar-MacUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "CrashCar-MacUITests";
+			sourceTree = "<group>";
+		};
+		0BA116462FDA431700E2D614 /* CrashCar-MacUIUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "CrashCar-MacUIUITests";
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		0BA116292FDA431600E2D614 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0BED357C2FDB4D1000B26D1A /* AWSAPIPlugin in Frameworks */,
+				0BED35882FDB4D1000B26D1A /* Amplify in Frameworks */,
+				0BED357E2FDB4D1000B26D1A /* AWSCloudWatchLoggingPlugin in Frameworks */,
+				0BED35802FDB4D1000B26D1A /* AWSCognitoAuthPlugin in Frameworks */,
+				0BED35822FDB4D1000B26D1A /* AWSDataStorePlugin in Frameworks */,
+				0BED35842FDB4D1000B26D1A /* AWSPluginsCore in Frameworks */,
+				0BED35862FDB4D1000B26D1A /* AWSS3StoragePlugin in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0BA116362FDA431700E2D614 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0BA116402FDA431700E2D614 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0BA116232FDA431600E2D614 = {
+			isa = PBXGroup;
+			children = (
+				0BA1162E2FDA431600E2D614 /* CrashCar-MacUI */,
+				0BA1163C2FDA431700E2D614 /* CrashCar-MacUITests */,
+				0BA116462FDA431700E2D614 /* CrashCar-MacUIUITests */,
+				0BA1162D2FDA431600E2D614 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		0BA1162D2FDA431600E2D614 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0BA1162C2FDA431600E2D614 /* CrashCar-MacUI.app */,
+				0BA116392FDA431700E2D614 /* CrashCar-MacUITests.xctest */,
+				0BA116432FDA431700E2D614 /* CrashCar-MacUIUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		0BA1162B2FDA431600E2D614 /* CrashCar-MacUI */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0BA1164D2FDA431700E2D614 /* Build configuration list for PBXNativeTarget "CrashCar-MacUI" */;
+			buildPhases = (
+				0BA116282FDA431600E2D614 /* Sources */,
+				0BA116292FDA431600E2D614 /* Frameworks */,
+				0BA1162A2FDA431600E2D614 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				0BA1162E2FDA431600E2D614 /* CrashCar-MacUI */,
+			);
+			name = "CrashCar-MacUI";
+			packageProductDependencies = (
+				0BED357B2FDB4D1000B26D1A /* AWSAPIPlugin */,
+				0BED357D2FDB4D1000B26D1A /* AWSCloudWatchLoggingPlugin */,
+				0BED357F2FDB4D1000B26D1A /* AWSCognitoAuthPlugin */,
+				0BED35812FDB4D1000B26D1A /* AWSDataStorePlugin */,
+				0BED35832FDB4D1000B26D1A /* AWSPluginsCore */,
+				0BED35852FDB4D1000B26D1A /* AWSS3StoragePlugin */,
+				0BED35872FDB4D1000B26D1A /* Amplify */,
+			);
+			productName = "CrashCar-MacUI";
+			productReference = 0BA1162C2FDA431600E2D614 /* CrashCar-MacUI.app */;
+			productType = "com.apple.product-type.application";
+		};
+		0BA116382FDA431700E2D614 /* CrashCar-MacUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0BA116502FDA431700E2D614 /* Build configuration list for PBXNativeTarget "CrashCar-MacUITests" */;
+			buildPhases = (
+				0BA116352FDA431700E2D614 /* Sources */,
+				0BA116362FDA431700E2D614 /* Frameworks */,
+				0BA116372FDA431700E2D614 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				0BA1163B2FDA431700E2D614 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				0BA1163C2FDA431700E2D614 /* CrashCar-MacUITests */,
+			);
+			name = "CrashCar-MacUITests";
+			packageProductDependencies = (
+			);
+			productName = "CrashCar-MacUITests";
+			productReference = 0BA116392FDA431700E2D614 /* CrashCar-MacUITests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		0BA116422FDA431700E2D614 /* CrashCar-MacUIUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0BA116532FDA431700E2D614 /* Build configuration list for PBXNativeTarget "CrashCar-MacUIUITests" */;
+			buildPhases = (
+				0BA1163F2FDA431700E2D614 /* Sources */,
+				0BA116402FDA431700E2D614 /* Frameworks */,
+				0BA116412FDA431700E2D614 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				0BA116452FDA431700E2D614 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				0BA116462FDA431700E2D614 /* CrashCar-MacUIUITests */,
+			);
+			name = "CrashCar-MacUIUITests";
+			packageProductDependencies = (
+			);
+			productName = "CrashCar-MacUIUITests";
+			productReference = 0BA116432FDA431700E2D614 /* CrashCar-MacUIUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		0BA116242FDA431600E2D614 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 2650;
+				LastUpgradeCheck = 2650;
+				TargetAttributes = {
+					0BA1162B2FDA431600E2D614 = {
+						CreatedOnToolsVersion = 26.5;
+					};
+					0BA116382FDA431700E2D614 = {
+						CreatedOnToolsVersion = 26.5;
+						TestTargetID = 0BA1162B2FDA431600E2D614;
+					};
+					0BA116422FDA431700E2D614 = {
+						CreatedOnToolsVersion = 26.5;
+						TestTargetID = 0BA1162B2FDA431600E2D614;
+					};
+				};
+			};
+			buildConfigurationList = 0BA116272FDA431600E2D614 /* Build configuration list for PBXProject "CrashCar-MacUI" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+				es,
+			);
+			mainGroup = 0BA116232FDA431600E2D614;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				0BED357A2FDB4D1000B26D1A /* XCRemoteSwiftPackageReference "amplify-swift" */,
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 0BA1162D2FDA431600E2D614 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				0BA1162B2FDA431600E2D614 /* CrashCar-MacUI */,
+				0BA116382FDA431700E2D614 /* CrashCar-MacUITests */,
+				0BA116422FDA431700E2D614 /* CrashCar-MacUIUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		0BA1162A2FDA431600E2D614 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0BA116372FDA431700E2D614 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0BA116412FDA431700E2D614 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		0BA116282FDA431600E2D614 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0BA116352FDA431700E2D614 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0BA1163F2FDA431700E2D614 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		0BA1163B2FDA431700E2D614 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0BA1162B2FDA431600E2D614 /* CrashCar-MacUI */;
+			targetProxy = 0BA1163A2FDA431700E2D614 /* PBXContainerItemProxy */;
+		};
+		0BA116452FDA431700E2D614 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0BA1162B2FDA431600E2D614 /* CrashCar-MacUI */;
+			targetProxy = 0BA116442FDA431700E2D614 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		0BA1164B2FDA431700E2D614 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = Z35474PTLP;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 26.5;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		0BA1164C2FDA431700E2D614 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = Z35474PTLP;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 26.5;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		0BA1164E2FDA431700E2D614 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "CrashCar-MacUI/CrashCar-MacUI.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Z35474PTLP;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SELECTED_FILES = readonly;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "CrashCar-MacUI/Info.plist";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.adstudios.CrashCar-MacUI";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		0BA1164F2FDA431700E2D614 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "CrashCar-MacUI/CrashCar-MacUI.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Z35474PTLP;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SELECTED_FILES = readonly;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "CrashCar-MacUI/Info.plist";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.adstudios.CrashCar-MacUI";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		0BA116512FDA431700E2D614 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Z35474PTLP;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 26.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.adstudios.CrashCar-MacUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CrashCar-MacUI.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/CrashCar-MacUI";
+			};
+			name = Debug;
+		};
+		0BA116522FDA431700E2D614 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Z35474PTLP;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 26.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.adstudios.CrashCar-MacUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CrashCar-MacUI.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/CrashCar-MacUI";
+			};
+			name = Release;
+		};
+		0BA116542FDA431700E2D614 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Z35474PTLP;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.adstudios.CrashCar-MacUIUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = "CrashCar-MacUI";
+			};
+			name = Debug;
+		};
+		0BA116552FDA431700E2D614 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Z35474PTLP;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.adstudios.CrashCar-MacUIUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = "CrashCar-MacUI";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		0BA116272FDA431600E2D614 /* Build configuration list for PBXProject "CrashCar-MacUI" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0BA1164B2FDA431700E2D614 /* Debug */,
+				0BA1164C2FDA431700E2D614 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0BA1164D2FDA431700E2D614 /* Build configuration list for PBXNativeTarget "CrashCar-MacUI" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0BA1164E2FDA431700E2D614 /* Debug */,
+				0BA1164F2FDA431700E2D614 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0BA116502FDA431700E2D614 /* Build configuration list for PBXNativeTarget "CrashCar-MacUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0BA116512FDA431700E2D614 /* Debug */,
+				0BA116522FDA431700E2D614 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0BA116532FDA431700E2D614 /* Build configuration list for PBXNativeTarget "CrashCar-MacUIUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0BA116542FDA431700E2D614 /* Debug */,
+				0BA116552FDA431700E2D614 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		0BED357A2FDB4D1000B26D1A /* XCRemoteSwiftPackageReference "amplify-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/aws-amplify/amplify-swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.58.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		0BED357B2FDB4D1000B26D1A /* AWSAPIPlugin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0BED357A2FDB4D1000B26D1A /* XCRemoteSwiftPackageReference "amplify-swift" */;
+			productName = AWSAPIPlugin;
+		};
+		0BED357D2FDB4D1000B26D1A /* AWSCloudWatchLoggingPlugin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0BED357A2FDB4D1000B26D1A /* XCRemoteSwiftPackageReference "amplify-swift" */;
+			productName = AWSCloudWatchLoggingPlugin;
+		};
+		0BED357F2FDB4D1000B26D1A /* AWSCognitoAuthPlugin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0BED357A2FDB4D1000B26D1A /* XCRemoteSwiftPackageReference "amplify-swift" */;
+			productName = AWSCognitoAuthPlugin;
+		};
+		0BED35812FDB4D1000B26D1A /* AWSDataStorePlugin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0BED357A2FDB4D1000B26D1A /* XCRemoteSwiftPackageReference "amplify-swift" */;
+			productName = AWSDataStorePlugin;
+		};
+		0BED35832FDB4D1000B26D1A /* AWSPluginsCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0BED357A2FDB4D1000B26D1A /* XCRemoteSwiftPackageReference "amplify-swift" */;
+			productName = AWSPluginsCore;
+		};
+		0BED35852FDB4D1000B26D1A /* AWSS3StoragePlugin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0BED357A2FDB4D1000B26D1A /* XCRemoteSwiftPackageReference "amplify-swift" */;
+			productName = AWSS3StoragePlugin;
+		};
+		0BED35872FDB4D1000B26D1A /* Amplify */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0BED357A2FDB4D1000B26D1A /* XCRemoteSwiftPackageReference "amplify-swift" */;
+			productName = Amplify;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 0BA116242FDA431600E2D614 /* Project object */;
+}
