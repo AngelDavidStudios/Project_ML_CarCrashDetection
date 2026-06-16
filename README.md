@@ -1,4 +1,4 @@
-<h1 align="center">Crash Detection ML: Real-Time Road Accident Detection System using YOLO11m</h1>
+<h1 align="center">Crash Detection ML: Real-Time Road Accident Detection System using YOLO11m and CCTV Surveillance</h1>
 
 **Crash Detection ML** is an AI-powered real-time accident detection system designed to revolutionize road safety. By leveraging advanced computer vision technology, Crash Detection ML detects vehicle collisions and accident events through CCTV footage and instantly notifies highway authorities, enabling swift emergency responses.
 
@@ -100,9 +100,10 @@ Follow these steps to set up the project on your local machine.
 
 Ensure you have the following tools installed:
 
-- ✅ **Node.js** (v14 or later)
-- ✅ **npm** or **yarn**
-- ✅ **Python 3.11** (strictly required — coremltools 9.0 does not provide wheels for Python 3.12 or later)
+- ✅ **macOS 26.5 (Tahoe) + Xcode 26.5** — required to build and run the native macOS app (`frontend-mac/`).
+- ✅ **Node.js** (v18 or later) — used by the AWS Amplify Gen 2 backend tooling (`npx ampx`).
+- ✅ **Python 3.11** (strictly required — coremltools 9.0 does not provide wheels for Python 3.12 or later) — for the FastAPI detection backend.
+- ✅ **AWS account** with credentials configured — the macOS app uses Amplify (Cognito, AppSync/DynamoDB, S3).
 - ⚡ **GPU acceleration** (optional): NVIDIA **CUDA Toolkit** on Linux/Windows, or **MPS** on Apple Silicon Macs (built into PyTorch, no extra install).
 
 > 💡 *Tip: Keep your packages up-to-date for best results.*
@@ -123,54 +124,28 @@ git clone <your-repo-url>
 cd crash-car-project
 ```
 
-### 2. ⚙️ Set Up the Frontend
+### 2. 🖥️ Set Up the Frontend (native macOS app)
 
-Navigate to the frontend folder and install the dependencies:
+The frontend is a **native macOS app** (`frontend-mac/`, SwiftUI + AWS Amplify Gen 2). It replaces the deprecated Next.js dashboard.
 
-```bash
-cd frontend
-npm install
-```
-
-### 3. 🔐 Configure Environment Variables (Frontend Only)
-
-1. **Generate Authentication Secret**
-   Make sure you are in the `frontend` directory before running the following command:
+1. **Deploy the Amplify Gen 2 backend** (Cognito, AppSync/DynamoDB, S3). From `frontend-mac/`:
    ```bash
-   npx auth secret
+   cd frontend-mac
+   npx ampx sandbox --once --outputs-out-dir CrashCar-MacUI/CrashCar-MacUI
    ```
+   This deploys the dev stack and refreshes the `amplify_outputs.json` bundled with the app.
 
-2. **Set Up Google OAuth**
-   - Go to the [Google Cloud Console](https://console.cloud.google.com/).
-   - Create a new project and configure OAuth consent.
-   - Set the Authorized Redirect URI to:
-     ```
-     http://localhost:3000/api/auth/callback/google
-     ```
-
-3. **Create or Update the Following Files in the `frontend` Directory:**
-
-   `.env.local`
-   ```
-   AUTH_SECRET= # Automatically added by `npx auth`
-   AUTH_GOOGLE_ID= # Your Google Client ID
-   AUTH_GOOGLE_SECRET= # Your Google Client Secret
-   ```
-
-   `.env`
-   ```
-   DATABASE_URL= # Your Postgres database connection string
-   ```
-
-4. **Database Setup**
-   Make sure you are in the `frontend` directory before running the following commands:
+2. **Open the project in Xcode** and run it:
    ```bash
-   cd frontend
-   pnpm exec prisma migrate dev
-   pnpm exec prisma generate
+   open CrashCar-MacUI/CrashCar-MacUI.xcodeproj   # then ⌘R
    ```
+   The first build is slow (Amplify Swift SPM graph).
 
-### 4. 🔌 Set Up the Backend
+> 🔐 **Auth** uses AWS Cognito **Managed Login** with federated Google sign-in — there is no `.env` / NextAuth / Prisma / PostgreSQL setup anymore. Cognito is configured from the AWS Console; the Google OAuth redirect URI must point to Cognito (`https://<domain>.auth.<region>.amazoncognito.com/oauth2/idpresponse`).
+>
+> 📖 For the full setup (prerequisites, Keychain/sandbox entitlements, tests, production notes) see [`frontend-mac/README.md`](frontend-mac/README.md).
+
+### 3. 🔌 Set Up the Backend
 
 1. **Create a Virtual Environment**
 
@@ -230,14 +205,16 @@ uvicorn app:app --host 0.0.0.0 --port 8000 --reload
 
 The backend will be available at `http://localhost:8000`.
 
-### 2. 🌐 Start the Frontend (Next.js)
+### 2. 🖥️ Launch the macOS App
+
+With the Amplify dev stack deployed (see setup) and the backend running, open and run the app from Xcode:
 
 ```bash
-cd ../frontend
-npm run dev
+cd ../frontend-mac
+open CrashCar-MacUI/CrashCar-MacUI.xcodeproj   # then ⌘R
 ```
 
-The frontend will be available at `http://localhost:3000`.
+The app connects to the FastAPI backend over WebSocket (`ws://localhost:8000/ws/detect`) and persists incidents in AWS (AppSync/DynamoDB) with accident images in S3. Sign in with Google via Cognito Managed Login.
 
 ## How It Works 🚦
 
@@ -258,23 +235,23 @@ Crash Detection ML is an AI-powered accident detection system that leverages adv
    Upon confirming an accident event, the backend sends an immediate alert to highway authorities and serializes the event to a structured JSON report with timestamp, confidence score, tracker ID and bounding box coordinates.
 
 5. **Verification and Response**
-   Authorities verify the incident through an intuitive dashboard and dispatch emergency services to the scene.
+   Authorities verify the incident through the native macOS app and dispatch emergency services to the scene.
 
 ## System Architecture
 
 <p align="center">
-  <img src="https://github.com/AngelDavidStudios/Project_ML_CarCrashDetection/blob/main/assets/Diagrama-Arquitectura-CarCrash.jpg" alt="System Architecture">
+  <img src="https://github.com/user-attachments/assets/1d0be4ae-d18b-4758-893a-3cb333f09d44" alt="System Architecture">
 </p>
 
 ## Methodology
 
 <p align="center">
-  <img src="https://github.com/AngelDavidStudios/Project_ML_CarCrashDetection/blob/main/assets/Diagrama-Procesos.jpg" alt="Methodology">
+  <img src="https://github.com/user-attachments/assets/61691468-cf4b-4e6e-9e26-22e4343c7a42" alt="Methodology">
 </p>
 
 ## Performance Highlights 📊
 
-<img src="https://github.com/AngelDavidStudios/Project_ML_CarCrashDetection/blob/main/assets/Resultados-Training.png" alt="YOLO11m Performance" style="width:100%; max-width:900px;"/>
+<img src="https://github.com/user-attachments/assets/af36475e-cfa9-45fc-a3b6-1121faf12243" alt="YOLO11m Performance" style="width:100%; max-width:900px;"/>
 
 ### 🔍 Key Performance Metrics
 
@@ -296,16 +273,18 @@ Crash Detection ML is an AI-powered accident detection system that leverages adv
 
 The project is divided into two main parts:
 
-1. **Frontend** (`/frontend`):
-   - Built with **Next.js 15** and **TypeScript**.
-   - Handles the user interface, routing, and authentication (Google OAuth via NextAuth v5).
-   - Includes Prisma for database interaction (PostgreSQL).
-   - Key files:
-     - `.env.local`: Auth secrets and Google OAuth credentials.
-     - `.env`: Database connection string.
-     - `app/`: App Router pages and API routes.
-     - `components/`: Reusable UI components.
-     - `prisma/`: Prisma schema and migration files.
+1. **Frontend — native macOS app** (`/frontend-mac`):
+   - Built with **SwiftUI** (macOS 26 Tahoe, LiquidGlass) and **AWS Amplify Gen 2**.
+   - Handles the user interface, authentication (AWS Cognito Managed Login + federated Google), and incident management.
+   - Persists data in **AppSync/DynamoDB** and accident images in **S3**; consumes the FastAPI backend over WebSocket.
+   - Key paths:
+     - `CrashCar-MacUI/CrashCar-MacUI.xcodeproj`: the Xcode project (bundle `com.adstudios.CrashCar-MacUI`).
+     - `CrashCar-MacUI/`: SwiftUI views, view models, and services.
+     - `amplify/`: Amplify Gen 2 backend definition (auth, data, storage).
+     - `amplify_outputs.json`: generated AWS config bundled with the app.
+     - `README.md` · `E2E_CHECKLIST.md`: setup and end-to-end verification guides.
+
+   > ⚠️ The earlier **Next.js 15 + Prisma + PostgreSQL** dashboard (`/frontend`) is **deprecated and no longer used** — kept in the repo for reference only.
 
 2. **Backend** (`/backend`):
    - Built with **FastAPI** + **PyTorch** + **Ultralytics YOLO11m**.
