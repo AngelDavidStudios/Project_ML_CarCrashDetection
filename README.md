@@ -239,9 +239,7 @@ Crash Detection ML is an AI-powered accident detection system that leverages adv
 
 ## System Architecture
 
-<p align="center">
-  <img src="https://github.com/AngelDavidStudios/Project_ML_CarCrashDetection/blob/main/assets/Diagrama-Arquitectura-CarCrash.jpg" alt="System Architecture">
-</p>
+
 
 ## Methodology
 
