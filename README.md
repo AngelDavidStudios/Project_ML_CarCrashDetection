@@ -240,18 +240,18 @@ Crash Detection ML is an AI-powered accident detection system that leverages adv
 ## System Architecture
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/1d0be4ae-d18b-4758-893a-3cb333f09d44" alt="System Architecture">
+  <img src="https://github.com/AngelDavidStudios/Project_ML_CarCrashDetection/blob/main/assets/Diagrama-Arquitectura-CarCrash.jpg" alt="System Architecture">
 </p>
 
 ## Methodology
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/61691468-cf4b-4e6e-9e26-22e4343c7a42" alt="Methodology">
+  <img src="https://github.com/AngelDavidStudios/Project_ML_CarCrashDetection/blob/main/assets/Diagrama-Procesos.jpg" alt="Methodology">
 </p>
 
 ## Performance Highlights 📊
 
-<img src="https://github.com/user-attachments/assets/af36475e-cfa9-45fc-a3b6-1121faf12243" alt="YOLO11m Performance" style="width:100%; max-width:900px;"/>
+<img src="https://github.com/AngelDavidStudios/Project_ML_CarCrashDetection/blob/main/assets/Resultados-Training.png" alt="YOLO11m Performance" style="width:100%; max-width:900px;"/>
 
 ### 🔍 Key Performance Metrics
 
